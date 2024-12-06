@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="css/carrito_style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Shopping Cart</h1>
+    <div id="cart-items"></div>
+    <div class="total">
+      <span>Total Price: $<span id="total-price">0.00</span></span>
+      <button class="checkout-button">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    const cartItems = [
+      { id: 1, name: "Laptop", price: 999, quantity: 1, image: "https://via.placeholder.com/50" },
+      { id: 2, name: "T-Shirt", price: 19, quantity: 2, image: "https://via.placeholder.com/50" },
+      { id: 3, name: "Blender", price: 49, quantity: 1, image: "https://via.placeholder.com/50" },
+    ];
+
+    function renderCart() {
+      const cartContainer = document.getElementById("cart-items");
+      const totalPriceElement = document.getElementById("total-price");
+      cartContainer.innerHTML = "";
+
+      let totalPrice = 0;
+
+      cartItems.forEach((item) => {
+        totalPrice += item.price * item.quantity;
+
+        const itemElement = document.createElement("div");
+        itemElement.className = "cart-item";
+
+        itemElement.innerHTML = `
+          <div>
+            <img src="${item.image}" alt="${item.name}">
+            <strong>${item.name}</strong>
+            <p>$${item.price.toFixed(2)}</p>
+          </div>
+          <div class="quantity-controls">
+            <button onclick="updateQuantity(${item.id}, -1)">-</button>
+            <input type="number" value="${item.quantity}" readonly>
+            <button onclick="updateQuantity(${item.id}, 1)">+</button>
+          </div>
+          <button class="remove-button" onclick="removeItem(${item.id})">Remove</button>
+        `;
+
+        cartContainer.appendChild(itemElement);
+      });
+
+      totalPriceElement.textContent = totalPrice.toFixed(2);
+    }
+
+    function updateQuantity(id, change) {
+      const item = cartItems.find((item) => item.id === id);
+      if (item) {
+        item.quantity = Math.max(1, item.quantity + change);
+        renderCart();
+      }
+    }
+
+    function removeItem(id) {
+      const index = cartItems.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        cartItems.splice(index, 1);
+        renderCart();
+      }
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
