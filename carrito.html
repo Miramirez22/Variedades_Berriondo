@@ -1,78 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Cart</title>
-  <link rel="stylesheet" href="css/carrito_style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Variedades Don Berriondo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #333;
+            color: #fff;
+        }
+        .navbar a {
+            color: #fff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .form-inline .form-control {
+            width: 300px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            margin-right: 1rem;
+            border-radius: 5px;
+            border: 2px dashed #ddd;
+        }
+        .btn-remove {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-remove:hover {
+            background-color: #a71d2a;
+        }
+        .btn-checkout {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-checkout:hover {
+            background-color: #0056b3;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Shopping Cart</h1>
-    <div id="cart-items"></div>
-    <div class="total">
-      <span>Total Price: $<span id="total-price">0.00</span></span>
-      <button class="checkout-button"><a href="URL" target="_blank">Checkout</a > </button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="index.html">Variedades Don Berriondo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categorias
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Alimentos</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Tecnología</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Ropa</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Artículos de hogar</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Animales</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Juguetería</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Hobbies</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Otro</a>
+                    <a class="dropdown-item" href="#"><img src="arepa.png" alt="Icono">Productos berriondos</a>
+                </div>
+            </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Carrito</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Administración</a></li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 ml-auto">
+                <input class="form-control mr-sm-2" type="search" placeholder="¿De qué está antojado pues?" aria-label="Buscar">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Shopping Cart -->
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Carrito de Compras</h2>
+        <div class="cart-item">
+            <div class="d-flex align-items-center">
+                <img src="https://via.placeholder.com/60" alt="Producto 1">
+                <span>Producto 1</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm">-</button>
+                <span class="mx-2">1</span>
+                <button class="btn btn-light btn-sm">+</button>
+            </div>
+            <span>$10.99</span>
+            <button class="btn-remove">Eliminar</button>
+        </div>
+        <div class="cart-item">
+            <div class="d-flex align-items-center">
+                <img src="https://via.placeholder.com/60" alt="Producto 2">
+                <span>Producto 2</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm">-</button>
+                <span class="mx-2">1</span>
+                <button class="btn btn-light btn-sm">+</button>
+            </div>
+            <span>$9.99</span>
+            <button class="btn-remove">Eliminar</button>
+        </div>
+        <div class="cart-item">
+            <div class="d-flex align-items-center">
+                <img src="https://via.placeholder.com/60" alt="Producto 3">
+                <span>Producto 3</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm">-</button>
+                <span class="mx-2">1</span>
+                <button class="btn btn-light btn-sm">+</button>
+            </div>
+            <span>$12.99</span>
+            <button class="btn-remove">Eliminar</button>
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span>$33.97</span>
+        </div>
+        <button class="btn-checkout mt-3 d-block mx-auto">Pagar</button>
     </div>
-  </div>
 
-  <script>
-    const cartItems = [
-      { id: 1, name: "Laptop", price: 999, quantity: 1, image: "https://via.placeholder.com/50" },
-      { id: 2, name: "T-Shirt", price: 19, quantity: 2, image: "https://via.placeholder.com/50" },
-      { id: 3, name: "Blender", price: 49, quantity: 1, image: "https://via.placeholder.com/50" },
-    ];
-
-    function renderCart() {
-      const cartContainer = document.getElementById("cart-items");
-      const totalPriceElement = document.getElementById("total-price");
-      cartContainer.innerHTML = "";
-
-      let totalPrice = 0;
-
-      cartItems.forEach((item) => {
-        totalPrice += item.price * item.quantity;
-
-        const itemElement = document.createElement("div");
-        itemElement.className = "cart-item";
-
-        itemElement.innerHTML = `
-          <div>
-            <img src="${item.image}" alt="${item.name}">
-            <strong>${item.name}</strong>
-            <p>$${item.price.toFixed(2)}</p>
-          </div>
-          <div class="quantity-controls">
-            <button onclick="updateQuantity(${item.id}, -1)">-</button>
-            <input type="number" value="${item.quantity}" readonly>
-            <button onclick="updateQuantity(${item.id}, 1)">+</button>
-          </div>
-          <button class="remove-button" onclick="removeItem(${item.id})">Remove</button>
-        `;
-
-        cartContainer.appendChild(itemElement);
-      });
-
-      totalPriceElement.textContent = totalPrice.toFixed(2);
-    }
-
-    function updateQuantity(id, change) {
-      const item = cartItems.find((item) => item.id === id);
-      if (item) {
-        item.quantity = Math.max(1, item.quantity + change);
-        renderCart();
-      }
-    }
-
-    function removeItem(id) {
-      const index = cartItems.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        cartItems.splice(index, 1);
-        renderCart();
-      }
-    }
-
-    renderCart();
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
