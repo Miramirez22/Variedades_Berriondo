@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <header class="header">
+        <img src="../static/images/banner.png" alt="Logo">
+        <div>
+            <h1>Variedades Don Berriondo</h1>
+            <p>¡Bueno, Bonito y Barato!</p>
+        </div>
+    </header>
+    <main class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+        <section class="login-section bg-white p-4 rounded shadow" style="max-width: 400px; width: 100%;">
+            <h1 class="text-center">Iniciar Sesión</h1>
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                <div class="text-center mt-3">
+                    <a href="signup.html" class="small">¿No tienes una cuenta? Regístrate</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Variedades Berriondo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        fetch('../templates/navbar.html')
+          .then(response => response.text())
+          .then(data => document.getElementById('navbar-placeholder').innerHTML = data)
+          .catch(error => console.error('Error al cargar la navbar:', error));
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
