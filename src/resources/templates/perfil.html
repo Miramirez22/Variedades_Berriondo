@@ -3,27 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Variedades Don Berriondo</title>
+    <title>Perfil - Variedades Don Berriondo</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Archivo CSS externo -->
     <link rel="stylesheet" href="../static/css/estilo_pagina.css">
+    <style>
+        .profile-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .form-control[readonly] {
+            background-color: #e9ecef;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            margin-right: 20px;
+        }
+        .main-content {
+            flex: 1;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div id="navbar-placeholder"></div>
 
-    <!-- Header -->
-    <header class="header">
-        <div>
-            <p>¡Bueno Bonito y Barato!</p>
+    <!-- Profile Section -->
+    <div class="container">
+        <div class="content">
+            <div class="sidebar">
+                <h2>Su perfil mijito</h2>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#datos-personales" data-toggle="tab">Datos personales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#direcciones-guardadas" data-toggle="tab">Direcciones guardadas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#metodos-pago" data-toggle="tab">Métodos de pago</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#seguridad" data-toggle="tab">Seguridad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pedidos" data-toggle="tab">Pedidos</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-content tab-content">
+                <div class="tab-pane fade show active" id="datos-personales">
+                    <section class="profile-section bg-white p-4 rounded shadow">
+                        <h3>Datos personales</h3>
+                        <form action="/update-profile" method="post" id="profile-form">
+                            <div class="form-group">
+                                <label for="name">Nombre:</label>
+                                <input type="text" id="name" name="name" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Nombre de usuario:</label>
+                                <input type="text" id="username" name="username" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico:</label>
+                                <input type="email" id="email" name="email" class="form-control" readonly>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-block" id="edit-button">Editar</button>
+                            <button type="submit" class="btn btn-primary btn-block" id="save-button" style="display: none;">Guardar Cambios</button>
+                        </form>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="direcciones-guardadas">
+                    <section class="profile-section bg-white p-4 rounded shadow">
+                        <h3>Direcciones guardadas</h3>
+                        <!-- Contenido de direcciones guardadas -->
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="metodos-pago">
+                    <section class="profile-section bg-white p-4 rounded shadow">
+                        <h3>Métodos de pago</h3>
+                        <!-- Contenido de métodos de pago -->
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="seguridad">
+                    <section class="profile-section bg-white p-4 rounded shadow">
+                        <h3>Seguridad</h3>
+                        <!-- Contenido de seguridad -->
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="pedidos">
+                    <section class="profile-section bg-white p-4 rounded shadow">
+                        <h3>Pedidos</h3>
+                        <!-- Contenido de pedidos -->
+                    </section>
+                </div>
+            </div>
         </div>
-    </header>
+        <footer class="text-center mt-4">
+            <p>&copy; 2025 Variedades Berriondo. Todos los derechos reservados.</p>
+        </footer>
+    </div>
 
     <script>
         fetch('navbar.html')
           .then(response => response.text())
-          .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+          .then(data => document.getElementById('navbar-placeholder').innerHTML = data)
+          .catch(error => console.error('Error al cargar la navbar:', error));
+
+        document.getElementById('edit-button').addEventListener('click', function() {
+            const form = document.getElementById('profile-form');
+            const inputs = form.querySelectorAll('.form-control');
+            inputs.forEach(input => input.removeAttribute('readonly'));
+            document.getElementById('edit-button').style.display = 'none';
+            document.getElementById('save-button').style.display = 'block';
+        });
     </script>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
