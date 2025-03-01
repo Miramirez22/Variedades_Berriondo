@@ -1,0 +1,44 @@
+[
+    {"model": "general.categoria", "pk": 1, "fields": {"nombre": "Alimentos"}},
+    {"model": "general.categoria", "pk": 2, "fields": {"nombre": "Tecnología"}},
+    {"model": "general.categoria", "pk": 3, "fields": {"nombre": "Ropa"}},
+    {"model": "general.categoria", "pk": 4, "fields": {"nombre": "Artículos de hogar"}},
+    {"model": "general.categoria", "pk": 5, "fields": {"nombre": "Animales"}},
+    {"model": "general.categoria", "pk": 6, "fields": {"nombre": "Juguetes"}},
+    {"model": "general.categoria", "pk": 7, "fields": {"nombre": "Hobbies"}},
+
+    {"model": "general.producto", "pk": 1, "fields": {"nombre": "Pan Integral", "descripcion": "Pan saludable sin conservantes", "precio": 2.50, "stock": 100, "categoria": 1}},
+    {"model": "general.producto", "pk": 2, "fields": {"nombre": "Leche Deslactosada", "descripcion": "1 litro de leche sin lactosa", "precio": 3.20, "stock": 50, "categoria": 1}},
+    {"model": "general.producto", "pk": 3, "fields": {"nombre": "Manzanas Rojas", "descripcion": "Bolsa de 6 unidades", "precio": 4.00, "stock": 30, "categoria": 1}},
+    {"model": "general.producto", "pk": 4, "fields": {"nombre": "Cereal de Avena", "descripcion": "Rico en fibra", "precio": 5.00, "stock": 60, "categoria": 1}},
+
+    {"model": "general.producto", "pk": 5, "fields": {"nombre": "Laptop Gamer", "descripcion": "16GB RAM, RTX 3060", "precio": 1200.00, "stock": 10, "categoria": 2}},
+    {"model": "general.producto", "pk": 6, "fields": {"nombre": "Smartphone 5G", "descripcion": "128GB de almacenamiento", "precio": 800.00, "stock": 20, "categoria": 2}},
+    {"model": "general.producto", "pk": 7, "fields": {"nombre": "Auriculares Bluetooth", "descripcion": "Con cancelación de ruido", "precio": 150.00, "stock": 40, "categoria": 2}},
+    {"model": "general.producto", "pk": 8, "fields": {"nombre": "Monitor 4K", "descripcion": "27 pulgadas, HDR", "precio": 400.00, "stock": 15, "categoria": 2}},
+
+    {"model": "general.producto", "pk": 9, "fields": {"nombre": "Camiseta Negra", "descripcion": "100% algodón", "precio": 25.00, "stock": 70, "categoria": 3}},
+    {"model": "general.producto", "pk": 10, "fields": {"nombre": "Jeans Clásicos", "descripcion": "Talla 32", "precio": 40.00, "stock": 50, "categoria": 3}},
+    {"model": "general.producto", "pk": 11, "fields": {"nombre": "Chaqueta de Cuero", "descripcion": "Estilo biker", "precio": 100.00, "stock": 30, "categoria": 3}},
+    {"model": "general.producto", "pk": 12, "fields": {"nombre": "Zapatillas Running", "descripcion": "Ultra ligeras", "precio": 60.00, "stock": 20, "categoria": 3}},
+
+    {"model": "general.producto", "pk": 13, "fields": {"nombre": "Juego de Sábanas", "descripcion": "Algodón egipcio", "precio": 50.00, "stock": 25, "categoria": 4}},
+    {"model": "general.producto", "pk": 14, "fields": {"nombre": "Aspiradora Inalámbrica", "descripcion": "Alta potencia", "precio": 120.00, "stock": 15, "categoria": 4}},
+    {"model": "general.producto", "pk": 15, "fields": {"nombre": "Cafetera Eléctrica", "descripcion": "Con temporizador", "precio": 80.00, "stock": 10, "categoria": 4}},
+    {"model": "general.producto", "pk": 16, "fields": {"nombre": "Sillón Reclinable", "descripcion": "Tapizado en cuero", "precio": 300.00, "stock": 5, "categoria": 4}},
+
+    {"model": "general.producto", "pk": 17, "fields": {"nombre": "Alimento para Perros", "descripcion": "10kg de croquetas", "precio": 35.00, "stock": 50, "categoria": 5}},
+    {"model": "general.producto", "pk": 18, "fields": {"nombre": "Juguete para Gato", "descripcion": "Ratón de peluche", "precio": 10.00, "stock": 100, "categoria": 5}},
+    {"model": "general.producto", "pk": 19, "fields": {"nombre": "Pecera Mediana", "descripcion": "Incluye filtro", "precio": 75.00, "stock": 8, "categoria": 5}},
+    {"model": "general.producto", "pk": 20, "fields": {"nombre": "Jaula para Pájaros", "descripcion": "Con accesorios", "precio": 50.00, "stock": 15, "categoria": 5}},
+
+    {"model": "general.producto", "pk": 21, "fields": {"nombre": "Muñeca Interactiva", "descripcion": "Habla y canta", "precio": 40.00, "stock": 30, "categoria": 6}},
+    {"model": "general.producto", "pk": 22, "fields": {"nombre": "Set de Bloques de Construcción", "descripcion": "500 piezas", "precio": 60.00, "stock": 20, "categoria": 6}},
+    {"model": "general.producto", "pk": 23, "fields": {"nombre": "Auto de Control Remoto", "descripcion": "Alcanza 20 km/h", "precio": 45.00, "stock": 25, "categoria": 6}},
+    {"model": "general.producto", "pk": 24, "fields": {"nombre": "Rompecabezas 1000 Piezas", "descripcion": "Temática de paisajes", "precio": 30.00, "stock": 40, "categoria": 6}},
+
+    {"model": "general.producto", "pk": 25, "fields": {"nombre": "Set de Pintura Acrílica", "descripcion": "24 colores", "precio": 25.00, "stock": 30, "categoria": 7}},
+    {"model": "general.producto", "pk": 26, "fields": {"nombre": "Guitarra Acústica", "descripcion": "Incluye funda", "precio": 120.00, "stock": 10, "categoria": 7}},
+    {"model": "general.producto", "pk": 27, "fields": {"nombre": "Bicicleta de Montaña", "descripcion": "Rodado 29", "precio": 400.00, "stock": 5, "categoria": 7}},
+    {"model": "general.producto", "pk": 28, "fields": {"nombre": "Libro de Fotografía", "descripcion": "Guía para principiantes", "precio": 50.00, "stock": 15, "categoria": 7}}
+]
