@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Resultados de búsqueda{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Barra de Búsqueda -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form method="GET" action="{% url 'search' %}">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg" name="q" placeholder="Buscar productos..." value="{{ request.GET.q }}">
+                        <button class="btn btn-warning" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <h4>Filtrar por:</h4>
+                <form method="GET" action="{% url 'search' %}">
+                    <!-- Campo oculto para conservar la búsqueda -->
+                    <input type="hidden" name="q" value="{{ request.GET.q }}">
+                
+                    <!-- Filtro por Categoría -->
+                    <label for="categoria">Categoría:</label>
+                    <select name="categoria" id="categoria" class="form-select">
+                        <option value="">Todas</option>
+                        <option value="tecnologia" {% if request.GET.categoria == "tecnologia" %}selected{% endif %}>Tecnología</option>
+                        <option value="ropa" {% if request.GET.categoria == "ropa" %}selected{% endif %}>Ropa</option>
+                        <option value="hogar" {% if request.GET.categoria == "hogar" %}selected{% endif %}>Hogar</option>
+                        <option value="alimentos" {% if request.GET.categoria == "alimentos" %}selected{% endif %}>Alimentos</option>
+                        <option value="animales" {% if request.GET.categoria == "animales" %}selected{% endif %}>Animales</option>
+                        <option value="juguetes" {% if request.GET.categoria == "juguetes" %}selected{% endif %}>Juguetes</option>
+                        <option value="hobbies" {% if request.GET.categoria == "hobbies" %}selected{% endif %}>Hobbies</option>
+                    </select>
+                
+                    <!-- Filtro por Rango de Precio -->
+                    <label for="precio_min">Precio mínimo:</label>
+                    <input type="number" name="precio_min" id="precio_min" class="form-control" value="{{ request.GET.precio_min }}">
+                
+                    <label for="precio_max">Precio máximo:</label>
+                    <input type="number" name="precio_max" id="precio_max" class="form-control" value="{{ request.GET.precio_max }}">
+                
+                    <!-- Botón para aplicar los filtros -->
+                    <button class="btn btn-primary mt-2" type="submit">Filtrar</button>
+                </form>
+            </div>
+            
+
+            <!-- Resultados -->
+            <div class="col-md-9">
+                <h3 class="text-center mb-4">Resultados para: <strong>{{ request.GET.q }}</strong></h3>
+
+<div class="row">
+    {% if productos %}
+        {% for producto in productos %}
+        <div class="col-md-4 mb-3">
+            <div class="card product-card">
+                <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/placeholder.png' %}{% endif %}" class="card-img-top" alt="{{ producto.nombre }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">${{ producto.precio }}</p>
+                    <button class="btn btn-primary">Comprar</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center mt-3">No se encontraron resultados para "{{ request.GET.q }}".</p>
+    {% endif %}
+</div>
+
+<p class="text-center mt-3">Mostrando {{ productos|length }} resultado(s)</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
