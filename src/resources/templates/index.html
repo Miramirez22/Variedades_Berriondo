@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variedades Don Berriondo</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <!-- Header -->
+    <header class="header">
+        <img src="../static/images/banner.png" alt="Logo">
+        <div>
+            <h1>Variedades Don Berriondo</h1>
+            <p>¡Bueno, Bonito y Barato!</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container-fluid main">
+        <!-- Products Section -->
+        <section class="products">
+            <h2>Todos los Productos</h2>
+            <div class="product">
+                <img src="../static/images/sopita.png" alt="placeholder">
+                <h3><a href ="productos.html"> Producto 1</a></h3>
+                <p>Descripción del producto 1.</p>
+                <p>Precio: $10.00</p>
+            </div>
+            <div class="product">
+                <img src="../static/images/sopita.png" alt="placeholder">
+                <h3>Producto 2</h3>
+                <p>Descripción del producto 2.</p>
+                <p>Precio: $20.00</p>
+            </div>
+            <div class="product">
+                <img src="../static/images/sopita.png" alt="placeholder">
+                <h3>Producto 3</h3>
+                <p>Descripción del producto 3.</p>
+                <p>Precio: $30.00</p>
+            </div>
+        </section>
+
+        <!-- Offers Section -->
+        <section class="offers">
+            <h2>Ofertas Especiales</h2>
+            <div class="offer">
+                <img src="../static/images/sopita.png" alt="Oferta 1">
+                <h3>Oferta 1</h3>
+                <p>Descripción de la oferta 1.</p>
+                <p>Precio: $5.00</p>
+            </div>
+            <div class="offer">
+                <img src="../static/images/sopita.png" alt="Oferta 2">
+                <h3>Oferta 2</h3>
+                <p>Descripción de la oferta 2.</p>
+                <p>Precio: $15.00</p>
+            </div>
+            <div class="offer">
+                <img src="../static/images/sopita.png" alt="Oferta 2">
+                <h3>Oferta 3</h3>
+                <p>Descripción de la oferta 3.</p>
+                <p>Precio: $15.00</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        fetch('navbar.html')
+          .then(response => response.text())
+          .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

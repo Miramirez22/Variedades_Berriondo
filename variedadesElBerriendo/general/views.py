@@ -50,3 +50,10 @@ def search(request):
         productos = productos.filter(precio__lte=precio_max)  # Precio máximo
 
     return render(request, 'search.html', {'productos': productos})
+
+
+def product_detail(request):
+
+    producto_ejemplo = Producto.objects.first()
+
+    return render(request, 'product_detail.html', {'producto':producto_ejemplo})

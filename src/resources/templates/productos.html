@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto - Variedades Don Berriondo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+    
+    <div class="container-fluid main">
+
+        <!-- Product Detail Section -->
+        <div class="container product-detail">
+            <div class="row">
+                <!-- Imagen del producto -->
+                <div class="col-md-6">
+                    <img src="../static/images/sopita.png" alt="Producto" class="product-image">
+                </div>
+
+                <!-- Información del producto -->
+                <div class="col-md-6">
+                    <div class="card product-card p-4">
+                        <h2 class="card-title">Nombre del Producto</h2>
+
+                        <p class="h2 text-primary">$100.000</p>
+                        <button class="btn btn-primary btn-lg mt-3" data-toggle="modal"
+                            data-target="#recommendationModal"><i class="fa-solid fa-cart-shopping"></i> Añadir al
+                            carrito</button>
+
+                        <!-- Button trigger modal -->
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="recommendationModal" tabindex="-1" role="dialog"
+                            aria-labelledby="recommendationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="recommendationModalLabel">¿Y nada mas va a llevar eso? Se va a hacer coger tristeza</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="productCarousel" class="carousel slide" data-ride="carousel"
+                                            data-interval="3000">
+                                            <div class="carousel-inner">
+                                                <!-- Producto 1 -->
+                                                <div class="carousel-item active">
+                                                    <div class="d-flex justify-content-center">
+                                                        <img src="../static/images/sopita.png" class="d-block"
+                                                            alt="Producto 1">
+                                                    </div>
+                                                    <div class="text-center mt-2">
+                                                        <h6>Producto 1</h6>
+                                                        <p>$20.00</p>
+                                                        <button class="btn btn-primary btn-sm">Ver producto</button>
+                                                    </div>
+                                                </div>
+                                                <!-- Producto 2 -->
+                                                <div class="carousel-item">
+                                                    <div class="d-flex justify-content-center">
+                                                        <img src="../static/images/sopita.png" class="d-block"
+                                                            alt="Producto 2">
+                                                    </div>
+                                                    <div class="text-center mt-2">
+                                                        <h6>Producto 2</h6>
+                                                        <p>$25.00</p>
+                                                        <button class="btn btn-primary btn-sm">Ver producto</button>
+                                                    </div>
+                                                </div>
+                                                <!-- Producto 3 -->
+                                                <div class="carousel-item">
+                                                    <div class="d-flex justify-content-center">
+                                                        <img src="../static/images/sopita.png" class="d-block"
+                                                            alt="Producto 3">
+                                                    </div>
+                                                    <div class="text-center mt-2">
+                                                        <h6>Producto 3</h6>
+                                                        <p>$30.00</p>
+                                                        <button class="btn btn-primary btn-sm">Ver producto</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Controles del carrusel -->
+                                            <a class="carousel-control-prev" href="#productCarousel" role="button"
+                                                data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"
+                                                    style="background-color: #343a40;"></span>
+                                                <span class="sr-only">Anterior</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#productCarousel" role="button"
+                                                data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"
+                                                    style="background-color: #343a40;"></span>
+                                                <span class="sr-only">Siguiente</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categorías -->
+            <div class="row categories">
+                <div class="col-12">
+                    <span>Tecnologia</span>
+                    <span>Artículos de hogar</span>
+                    <span>Ofertas</span>
+                </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="row description mt-4">
+                <div class="col-12">
+                    <h2>Descripción:</h2>
+                    <p>
+                        Este es un producto de alta calidad que ofrece un excelente rendimiento y durabilidad.
+                        Perfecto para aquellos que buscan funcionalidad y estilo en un solo artículo.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestions Section -->
+        <div class="container suggestions">
+            <h3>Productos Similares</h3>
+            <div class="suggestion">
+                <img src="https://via.placeholder.com/150" alt="Producto Sugerido 1">
+                <h4>Producto Sugerido 1</h4>
+                <p>Precio: $20.00</p>
+            </div>
+            <div class="suggestion">
+                <img src="https://via.placeholder.com/150" alt="Producto Sugerido 2">
+                <h4>Producto Sugerido 2</h4>
+                <p>Precio: $18.00</p>
+            </div>
+            <div class="suggestion">
+                <img src="https://via.placeholder.com/150" alt="Producto Sugerido 3">
+                <h4>Producto Sugerido 3</h4>
+                <p>Precio: $22.00</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        fetch('navbar.html')
+          .then(response => response.text())
+          .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
