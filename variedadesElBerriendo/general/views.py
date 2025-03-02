@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from general.models import Producto, Carrito
 import random
 from django.contrib.auth.decorators import login_required
-
+from .forms import CustomUserForm
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LogoutView
 
 # Create your views here.
-
 
 def index(request):
     # Obtener productos recomendados (6 aleatorios)
@@ -29,8 +31,6 @@ def index(request):
         'varios': varios
     })
 
-
-
 def search(request):
     query = request.GET.get('q', '')  # Obtiene la búsqueda
     categoria = request.GET.get('categoria', '')  # Obtiene la categoría
@@ -53,11 +53,9 @@ def search(request):
 
     return render(request, 'search.html', {'productos': productos})
 
-
 def product_detail(request, id):
     producto = get_object_or_404(Producto, id=id)
-
-    return render(request, 'product_detail.html', {'producto':producto})
+    return render(request, 'product_detail.html', {'producto': producto})
 
 # Decorador para requerir login
 @login_required(login_url='login')
@@ -68,11 +66,34 @@ def carrito(request):
         carrito = None
     return render(request, 'carrito.html', {'carrito': carrito})
 
-def login(request):
-    return render(request, 'login.html', {'login': login})
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('profile')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 def signup(request):
-    return render(request, 'signup.html', {'signup': signup})
+    if request.method == "POST":
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)  # Inicia sesión automáticamente
+            return redirect("profile")  # Redirige al perfil
+    else:
+        form = CustomUserForm()
+    return render(request, "signup.html", {"form": form})
 
+@login_required(login_url='login')
 def profile(request):
-    return render(request, 'profile.html', {'profile': profile})
+    return render(request, 'profile.html', {'profile': request.user})
+
+class CustomLogoutView(LogoutView):
+    next_page = 'index'

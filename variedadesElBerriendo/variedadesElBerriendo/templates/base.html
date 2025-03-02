@@ -23,7 +23,7 @@
 
         .search-form {
             flex-grow: 1;
-            max-width: 500px;
+            max-width: 700px; /* Ajusta el ancho máximo del formulario */
         }
 
         .search-input {
@@ -45,22 +45,20 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
-                    </li>
-                </ul>
                 <form class="d-flex search-form mx-auto" action="{% url 'search' %}" method="GET">
                     <input class="form-control me-2 search-input" type="search" name="q" placeholder="¿De que está antojado pues!?" aria-label="Buscar">
                     <button class="btn btn-dark" type="submit">Buscar</button>
                 </form>
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+                    </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                            <a class="nav-link" href="{% url 'index' %}">Cerrar sesión</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -78,8 +76,6 @@
     <!-- Contenido dinámico de cada página -->
     <div class="">
         {% block content %}
-        
-        
         {% endblock %}
     </div>
 
