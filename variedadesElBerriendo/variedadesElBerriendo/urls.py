@@ -23,12 +23,12 @@ from general.views import index, search, product_detail, carrito, login_view, si
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('signup/', signup, name='signup'),
+    path('login/', login_view, name='login'),
+    path('profile/', profile, name='profile'),
+    path('carrito/', carrito, name='carrito'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('', index, name='index'),
     path('search/', search, name='search'),
-    path('producto/<int:id>/', product_detail, name='product_detail'),
-    path('carrito/', carrito, name='carrito'),
-    path('login/', login_view, name='login'),
-    path('signup/', signup, name='signup'),
-    path('logout/', CustomLogoutView.as_view(), name='logout'),
-    path('profile/', profile, name='profile')
+    path('product/<int:id>/', product_detail, name='product_detail'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

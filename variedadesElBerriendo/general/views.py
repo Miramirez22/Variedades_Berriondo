@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LogoutView
+
 
 # Create your views here.
 
@@ -95,5 +95,7 @@ def signup(request):
 def profile(request):
     return render(request, 'profile.html', {'profile': request.user})
 
+
+from django.contrib.auth.views import LogoutView
 class CustomLogoutView(LogoutView):
     next_page = 'index'
