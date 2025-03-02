@@ -36,7 +36,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ producto.nombre }}</h5>
                     <p class="card-text">${{ producto.precio }}</p>
-                    <button class="btn btn-primary">Comprar</button>
+                    <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary">Detalles</a>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="card-body text-center">
                 <h5 class="card-title">{{ producto.nombre }}</h5>
                 <p class="card-text">${{ producto.precio }}</p>
-                <button class="btn btn-primary">Comprar</button>
+                <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary">Detalles</a>
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
             <div class="card-body text-center">
                 <h5 class="card-title">{{ producto.nombre }}</h5>
                 <p class="card-text">${{ producto.precio }}</p>
-                <button class="btn btn-primary">Comprar</button>
+                <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary">Detalles</a>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
             <div class="card-body text-center">
                 <h5 class="card-title">{{ producto.nombre }}</h5>
                 <p class="card-text">${{ producto.precio }}</p>
-                <button class="btn btn-primary">Comprar</button>
+                <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary">Detalles</a>
             </div>
         </div>
     </div>

@@ -19,11 +19,13 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from general.views import index, search, product_detail
+from general.views import index, search, product_detail, carrito, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name=''),
+    path('', index, name='index'),
     path('search/', search, name='search'),
-    path('product_detail/', product_detail, name='product_detail'),
+    path('producto/<int:id>/', product_detail, name='product_detail'),
+    path('carrito/', carrito, name='carrito'),
+    path('login/', login, name='login'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
