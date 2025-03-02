@@ -56,7 +56,6 @@ def search(request):
 
 def product_detail(request, id):
     producto = get_object_or_404(Producto, id=id)
-
     return render(request, 'product_detail.html', {'producto':producto})
 
 # Decorador para requerir login
