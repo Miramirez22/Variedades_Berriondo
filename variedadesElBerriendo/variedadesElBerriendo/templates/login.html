@@ -3,5 +3,39 @@
 {% block title %}Carrito{% endblock %}
 
 {% block content %}
-<div>Login page </div>
+<div id="navbar-placeholder"></div>
+<header class="header">
+    <div>
+        <h1>¿Como Va a Comprar Sin Iniciar Sesión?</h1>
+        <p>¡Se Va Hacer Coger Tristeza!</p>
+    </div>
+</header>
+<main class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <section class="login-section bg-white p-4 rounded shadow" style="max-width: 400px; width: 100%;">
+        <h1 class="text-center">Iniciar Sesión</h1>
+        <form action="perfil.html" method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+            <div class="text-center mt-3">
+                <a href="{% url 'signup' %}" class="small">¿No tiene una cuenta? Regístrese Mijito!</a>
+            </div>
+
+            <script>
+                function validateForm() {
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    if (username === '' || password === '') {
+                        alert('Por favor, complete todos los campos.');
+                        return false;
+                    }
+                    return true;
+                }
+            </script>
 {% endblock %}

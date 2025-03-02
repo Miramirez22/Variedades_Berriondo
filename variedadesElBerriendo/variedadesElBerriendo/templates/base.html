@@ -20,12 +20,19 @@
             text-align: center;
             margin-top: 40px;
         }
+
+        .search-form {
+            flex-grow: 1;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+        }
     </style>
 </head>
 
 <body>
-
-    
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -37,19 +44,33 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+                        <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
                     </li>
-                    
                 </ul>
-                <form class="d-flex ms-auto" action="{% url 'search' %}" method="GET">
-                    <input class="form-control me-2" type="search" name="q" placeholder="Buscar productos..."
-                        aria-label="Buscar">
+                <form class="d-flex search-form mx-auto" action="{% url 'search' %}" method="GET">
+                    <input class="form-control me-2 search-input" type="search" name="q" placeholder="¿De que está antojado pues!?" aria-label="Buscar">
                     <button class="btn btn-dark" type="submit">Buscar</button>
                 </form>
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">Registrarse</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>

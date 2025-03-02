@@ -69,4 +69,10 @@ def carrito(request):
     return render(request, 'carrito.html', {'carrito': carrito})
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'login': login})
+
+def signup(request):
+    return render(request, 'signup.html', {'signup': signup})
+
+def profile(request):
+    return render(request, 'profile.html', {'profile': profile})
