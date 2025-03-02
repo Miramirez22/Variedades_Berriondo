@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from general.models import Producto
+from django.shortcuts import render, redirect, get_object_or_404
+from general.models import Producto, Carrito
 import random
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -52,8 +54,19 @@ def search(request):
     return render(request, 'search.html', {'productos': productos})
 
 
-def product_detail(request):
+def product_detail(request, id):
+    producto = get_object_or_404(Producto, id=id)
 
-    producto_ejemplo = Producto.objects.first()
+    return render(request, 'product_detail.html', {'producto':producto})
 
-    return render(request, 'product_detail.html', {'producto':producto_ejemplo})
+# Decorador para requerir login
+@login_required(login_url='login')
+def carrito(request):
+    try:
+        carrito = Carrito.objects.get(usuario=request.user)
+    except:
+        carrito = None
+    return render(request, 'carrito.html', {'carrito': carrito})
+
+def login(request):
+    return render(request, 'login.html')

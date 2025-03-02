@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Carrito{% endblock %}
+
+{% block content %}
+<div class="container-fluid main">
+
+    <!-- Shopping Cart -->
+    <div class="container my-4">
+
+        <div class="product">
+            <div class="d-flex align-items-center">
+                <img src="../static/images/sopita.png" alt="Producto 1">
+                <span>Producto 1</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm">-</button>
+                <span class="mx-2">1</span>
+                <button class="btn btn-light btn-sm">+</button>
+            </div>
+            <span>$10.99</span>
+            <button class="btn-remove">Eliminar</button>
+        </div>
+        <div class="product">
+            <div class="d-flex align-items-center">
+                <img src="../static/images/sopita.png" alt="Producto 2">
+                <span>Producto 2</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm">-</button>
+                <span class="mx-2">1</span>
+                <button class="btn btn-light btn-sm">+</button>
+            </div>
+            <span>$9.99</span>
+            <button class="btn-remove">Eliminar</button>
+        </div>
+        <div class="product">
+            <div class="d-flex align-items-center">
+                <img src="../static/images/sopita.png" alt="Producto 3">
+                <span>Producto 3</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm">-</button>
+                <span class="mx-2">1</span>
+                <button class="btn btn-light btn-sm">+</button>
+            </div>
+            <span>$12.99</span>
+            <button class="btn-remove">Eliminar</button>
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span>$33.97</span>
+        </div>
+        <button class="btn-checkout mt-3 d-block mx-auto">Pagar</button>
+    </div>
+</div>
+ 
+
+
+{% endblock %}
