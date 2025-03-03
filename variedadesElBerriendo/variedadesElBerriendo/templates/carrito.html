@@ -41,7 +41,7 @@
                             <td>
                                 <form method="POST" action="{% url 'remove_from_cart' item.id %}">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm btn-eliminar-producto" data-product-id="{{item.id}}">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -66,17 +66,37 @@
                     </div>
                 </div>
             </div>
-            
+        
+     
 
         {% else %}
             <p>No hay productos en tu carrito.</p>
         {% endif %}
     {% else %}
         <p>Debes iniciar sesión para ver tu carrito.</p>
-    {% endif %}
-    
+    {% endif %}   
 </div>
  
+ <!-- Modal popup window-->
+ <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
+        </div>
+        <div class="modal-body">
+            Ay no me hagas eso ome! Creo que no quieres eliminar este producto de tu carrito, lo necesitas, te van a envidiar por este
+        </div>
+        <div class="modal-footer">
+        <form method="POST" id="deleteForm">
+            {% csrf_token %}
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Con razón, lo necesito!</button>
+            <button type="submit" class="btn btn-danger">si, seguro/a</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>
 
-
+<script src="{% static 'js/scripts.js' %}"></script>
 {% endblock %}
