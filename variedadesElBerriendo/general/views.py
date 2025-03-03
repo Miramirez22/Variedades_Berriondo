@@ -73,11 +73,30 @@ def product_detail(request, id):
 # Decorador para requerir login
 @login_required(login_url='login')
 def carrito(request):
-    try:
-        carrito = Carrito.objects.get(usuario=request.user)
-    except:
-        carrito = None
-    return render(request, 'carrito.html', {'carrito': carrito})
+    # Obtener carrito del usuario
+    carrito_items = Carrito.objects.filter(usuario=request.user)
+    # calcular el precio total
+    total_price = sum([item.producto.precio * item.cantidad for item in carrito_items])
+
+    # adaptar cantidad de producto
+    if request.method == 'POST':
+        for item in carrito_items:
+            cantidad = request.POST.get(f'cantidad_{item.id}')
+            if cantidad:
+                try:
+                    cantidad = int(cantidad)
+                    if cantidad > 0:
+                        item.cantidad = cantidad
+                        item.save()
+                except ValueError:
+                    pass  # número invalido
+        return redirect('carrito')
+    
+    return render(request, 'carrito.html', {
+        'carrito': carrito,
+        'carrito_items': carrito_items,
+        'total_price': total_price
+    })
 
 
 @login_required(login_url='login')
@@ -93,6 +112,28 @@ def add_to_cart(request, id):
         carrito_item.cantidad += 1
         carrito_item.save()
 
+    return redirect('carrito')
+
+def remove_from_cart(request, id):
+    carrito_item = get_object_or_404(Carrito, id=id)
+    carrito_item.delete()
+    return redirect('carrito')
+
+@login_required
+def update_quantity(request, id):
+    try:
+        item = Carrito.objects.get(id=id, usuario=request.user)
+        cantidad = request.POST.get(f'cantidad_{item.id}')
+        if cantidad:
+            try:
+                cantidad = int(cantidad)
+                if cantidad > 0:
+                    item.cantidad = cantidad
+                    item.save()
+            except ValueError:
+                pass  
+    except Carrito.DoesNotExist:
+        pass
     return redirect('carrito')
 
 def login_view(request):

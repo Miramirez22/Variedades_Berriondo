@@ -17,7 +17,6 @@ class Producto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name="productos")
     imagen = models.ImageField(upload_to="productos/", blank=True, null=True)
     fecha_creacion = models.DateTimeField(default=now)
-    imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
 
     def __str__(self):
         return self.nombre
@@ -29,3 +28,7 @@ class Carrito(models.Model):
 
     def __str__(self):
         return f"Carrito de {self.usuario.username}"
+    
+    @property
+    def subtotal(self):
+        return self.producto.precio * self.cantidad
