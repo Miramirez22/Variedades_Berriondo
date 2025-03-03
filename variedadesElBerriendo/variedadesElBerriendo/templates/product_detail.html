@@ -19,9 +19,13 @@
                     <h2 class="card-title">{{producto.nombre}}</h2>
 
                     <p class="h2 text-primary">{{producto.precio}} $</p>
-                    <button class="btn btn-primary btn-lg mt-3" data-toggle="modal"
-                        data-target="#recommendationModal"><i class="fa-solid fa-cart-shopping"></i> Añadir al
-                        carrito</button>
+                    <!-- Button zum Hinzufügen zum Warenkorb -->
+                    <form method="POST" action="{% url 'add_to_cart' producto.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">
+                            <i class="fa-solid fa-cart-shopping"></i> Añadir al carrito
+                        </button>
+                    </form>
 
                     <!-- trigger modal -->
                     <a href="#" data-toggle="modal" data-target="#recommendationModal" style="text-decoration: none;">
@@ -131,22 +135,17 @@
 
     <!-- Suggestions Section -->
     <div class="container suggestions">
-        <h3>Productos Similares</h3>
-        <div class="suggestion">
-            <img src="https://via.placeholder.com/150" alt="Producto Sugerido 1">
-            <h4>Producto Sugerido 1</h4>
-            <p>Precio: $20.00</p>
-        </div>
-        <div class="suggestion">
-            <img src="https://via.placeholder.com/150" alt="Producto Sugerido 2">
-            <h4>Producto Sugerido 2</h4>
-            <p>Precio: $18.00</p>
-        </div>
-        <div class="suggestion">
-            <img src="https://via.placeholder.com/150" alt="Producto Sugerido 3">
-            <h4>Producto Sugerido 3</h4>
-            <p>Precio: $22.00</p>
-        </div>
+        <h3>Productos que te pueden interesar también:</h3>
+
+        {% for producto_similar in productos_similares %}
+            <a href="{% url 'product_detail' producto_similar.id %}">
+                <div class="suggestion">
+                    <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/placeholder.png' %}{% endif %}" class="card-img-top" alt="{{ producto.nombre }}"  alt="Imagen del producto">
+                    <h4>{{producto_similar.nombre}}</h4>
+                    <p>Precio: ${{producto_similar.precio}}</p>
+                </div>
+            </a>
+        {% endfor %}
     </div>
 </div>
 

@@ -55,8 +55,20 @@ def search(request):
 
 
 def product_detail(request, id):
+    # Obtener producto por ID
     producto = get_object_or_404(Producto, id=id)
-    return render(request, 'product_detail.html', {'producto':producto})
+    # Obtener productos similares (de la misma categoría, excluyendo el actual)
+    productos_similares = Producto.objects.filter(categoria=producto.categoria).exclude(id=producto.id)[:3]
+    
+    # si hay menos de 3 productos similares, agregar productos aleatorios
+    if productos_similares.count() < 3:
+        productos_random = Producto.objects.exclude(id=producto.id).order_by('?')[:(3 - productos_similares.count())]
+        productos_similares = productos_similares | productos_random
+    productos_similares = productos_similares[:3]
+
+    return render(request, 'product_detail.html', {
+        'producto':producto, 
+        'productos_similares': productos_similares })
 
 # Decorador para requerir login
 @login_required(login_url='login')
@@ -69,3 +81,18 @@ def carrito(request):
 
 def login(request):
     return render(request, 'login.html')
+
+@login_required(login_url='login')
+def add_to_cart(request, id):
+    producto = get_object_or_404(Producto, id=id)
+
+    carrito_item, created = Carrito.objects.get_or_create(
+        usuario=request.user,
+        producto=producto,
+        )
+    
+    if not created:
+        carrito_item.cantidad += 1
+        carrito_item.save()
+
+    return redirect('carrito')
