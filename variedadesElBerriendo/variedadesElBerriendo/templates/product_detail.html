@@ -13,20 +13,25 @@
                 <img src="{% static 'img/placeholder.png' %}" alt="Producto" class="product-image">
             </div>
 
-            <h3>{{producto.nombre}}</h3>
-
             <!-- Información del producto -->
             <div class="col-md-6">
                 <div class="card product-card p-4">
-                    <h2 class="card-title">Nombre del Producto</h2>
+                    <h2 class="card-title">{{producto.nombre}}</h2>
 
-                    <p class="h2 text-primary">$100.000</p>
-                    <button class="btn btn-primary btn-lg mt-3" data-toggle="modal"
-                        data-target="#recommendationModal"><i class="fa-solid fa-cart-shopping"></i> Añadir al
-                        carrito</button>
+                    <p class="h2 text-primary">{{producto.precio}} $</p>
+                    <!-- Button zum Hinzufügen zum Warenkorb -->
+                    <form method="POST" action="{% url 'add_to_cart' producto.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">
+                            <i class="fa-solid fa-cart-shopping"></i> Añadir al carrito
+                        </button>
+                    </form>
 
-                    <!-- Button trigger modal -->
-
+                    <!-- trigger modal -->
+                    <a href="#" data-toggle="modal" data-target="#recommendationModal" style="text-decoration: none;">
+                        Regresar sin comprar
+                    </a>                    
+  
 
                     <!-- Modal -->
                     <div class="modal fade" id="recommendationModal" tabindex="-1" role="dialog"
@@ -47,7 +52,7 @@
                                             <!-- Producto 1 -->
                                             <div class="carousel-item active">
                                                 <div class="d-flex justify-content-center">
-                                                    <img src="../static/images/sopita.png" class="d-block"
+                                                    <img src="{% static 'images/sopita.png' %}" class="d-block"
                                                         alt="Producto 1">
                                                 </div>
                                                 <div class="text-center mt-2">
@@ -59,7 +64,7 @@
                                             <!-- Producto 2 -->
                                             <div class="carousel-item">
                                                 <div class="d-flex justify-content-center">
-                                                    <img src="../static/images/sopita.png" class="d-block"
+                                                    <img src="{% static 'images/sopita.png' %}" class="d-block"
                                                         alt="Producto 2">
                                                 </div>
                                                 <div class="text-center mt-2">
@@ -71,7 +76,7 @@
                                             <!-- Producto 3 -->
                                             <div class="carousel-item">
                                                 <div class="d-flex justify-content-center">
-                                                    <img src="../static/images/sopita.png" class="d-block"
+                                                    <img src="{% static 'images/sopita.png' %}" class="d-block"
                                                         alt="Producto 3">
                                                 </div>
                                                 <div class="text-center mt-2">
@@ -112,9 +117,8 @@
         <!-- Categorías -->
         <div class="row categories">
             <div class="col-12">
-                <span>Tecnologia</span>
-                <span>Artículos de hogar</span>
-                <span>Ofertas</span>
+                <span>{{producto.categoria}}</span>
+                <span>Categoría 2?</span>
             </div>
         </div>
 
@@ -123,8 +127,7 @@
             <div class="col-12">
                 <h2>Descripción:</h2>
                 <p>
-                    Este es un producto de alta calidad que ofrece un excelente rendimiento y durabilidad.
-                    Perfecto para aquellos que buscan funcionalidad y estilo en un solo artículo.
+                    {{producto.descripcion}}
                 </p>
             </div>
         </div>
@@ -132,22 +135,17 @@
 
     <!-- Suggestions Section -->
     <div class="container suggestions">
-        <h3>Productos Similares</h3>
-        <div class="suggestion">
-            <img src="https://via.placeholder.com/150" alt="Producto Sugerido 1">
-            <h4>Producto Sugerido 1</h4>
-            <p>Precio: $20.00</p>
-        </div>
-        <div class="suggestion">
-            <img src="https://via.placeholder.com/150" alt="Producto Sugerido 2">
-            <h4>Producto Sugerido 2</h4>
-            <p>Precio: $18.00</p>
-        </div>
-        <div class="suggestion">
-            <img src="https://via.placeholder.com/150" alt="Producto Sugerido 3">
-            <h4>Producto Sugerido 3</h4>
-            <p>Precio: $22.00</p>
-        </div>
+        <h3>Productos que te pueden interesar también:</h3>
+
+        {% for producto_similar in productos_similares %}
+            <a href="{% url 'product_detail' producto_similar.id %}">
+                <div class="suggestion">
+                    <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/placeholder.png' %}{% endif %}" class="card-img-top" alt="{{ producto.nombre }}"  alt="Imagen del producto">
+                    <h4>{{producto_similar.nombre}}</h4>
+                    <p>Precio: ${{producto_similar.precio}}</p>
+                </div>
+            </a>
+        {% endfor %}
     </div>
 </div>
 
