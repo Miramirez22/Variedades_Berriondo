@@ -187,24 +187,23 @@ body {
 }
 
 .checkout, .return {
-    display: flex;  /* Flexbox aktivieren */
-    justify-content: space-between;  /* Buttons nebeneinander mit Abstand */
-    align-items: center;  /* Zentriert die Buttons vertikal */
-    margin: 10px 0;  /* Abstand nach oben und unten */
-}
-
-.checkout a, .return a {
-    padding: 10px 20px;  /* Etwas Polsterung um die Links */
-    text-decoration: none;  /* Unterstreichung entfernen */
-    border-radius: 5px;  /* Abgerundete Ecken */
-    color: white;  /* Textfarbe der Buttons */
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center; 
+    margin: 10px 0; 
 }
 
 .checkout a {
-    background-color: #007bff;  /* Hintergrundfarbe für den ersten Button */
+    padding: 10px 20px;  
+    text-decoration: none;  
+    border-radius: 5px; 
+    color: white; 
+    background-color: #007bff;  
+}
+.return a{
+    color: black;
 }
 
-.return a {
-    background-color: black;  /* Hintergrundfarbe für den zweiten Button */
-    color: white;  /* Textfarbe des zweiten Buttons */
+.return-carrito{
+    background-color: #007bff; 
 }

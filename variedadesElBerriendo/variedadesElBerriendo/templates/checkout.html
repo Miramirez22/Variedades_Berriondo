@@ -4,10 +4,12 @@
 
 {% block content %}
 
-<!-- overview del pedido como lista -->
+
 <div class="col-md-9">
     <div class="main-content tab-content">
-        <div class="tab-pane fade show active" id="datos-personales">
+        <div class="tab-pane fade show active">
+
+            <!-- overview del pedido como lista -->
             <section class="profile-section bg-white p-4 rounded shadow-sm">
                 <h3>Pedido</h3>
                 <table class="table checkout-table">
@@ -31,8 +33,34 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <p><b>Precio total: ${{ total_price }}</b></p>  
+                <div class="d-flex justify-content-between align-items-center">
+                    <p><b>Precio total: ${{ total_price }}</b></p>
+                    
+                    <div class="btn btn-primary">
+                        <a href="{% url 'carrito' %}" class="btn btn-primary">Editar carrito</a>    
+                    </div>
+                </div>
             </section>
+
+            <!--Método de pagar-->
+            <section class="profile-section bg-white p-4 rounded shadow-sm">
+                <h3>Método de pago</h3>
+                <div> 1 - show método de pago available de usuario</div>
+                <div> 2 - show form para añadir nuevo método de pago</div>
+            </section>
+
+            <!--Dirección de entrega-->
+            <section class="profile-section bg-white p-4 rounded shadow-sm">
+                <h3>Dirección de entrega</h3>
+                <div> 1 - show dirección de entrega de usuario</div>
+                <div> 2 - show form para añadir nueva dirección de entrega</div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <a href="{% url 'index' %}" class="btn btn-danger">Pagar</a>    
+                </div>
+            </section>
+
+            
        
     </div>
 </div>

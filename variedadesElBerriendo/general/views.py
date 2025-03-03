@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from general.models import Producto, Carrito
 import random
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserForm
+from .forms import CustomUserForm, PaymentForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -138,9 +138,18 @@ def update_quantity(request, id):
 
 def checkout(request):
     total_price = sum(item.subtotal for item in request.user.carrito_set.all())
-
+    form = PaymentForm()
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            # Procesar pago
+            return redirect('index')
+    else:
+        form = PaymentForm()
+    
     context = {
-        'total_price': total_price
+        'total_price': total_price,
+        'form': form
     }
 
     return render(request, 'checkout.html', context)
@@ -150,6 +159,7 @@ def añadir_otro(request, id):
     item.cantidad += 1
     item.save()
     return redirect('checkout')
+
 
 
 def login_view(request):

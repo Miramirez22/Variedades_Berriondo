@@ -24,3 +24,16 @@ class CustomUserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+class PaymentForm(forms.Form):
+    PAYMENT_METHOD_CHOICES = [
+        ('tarjeta_credito', 'Tarjeta de crédito'),
+        ('tarjeta_debito', 'Tarjeta de débito'),
+        ('efectivo', 'Efectivo'),
+    ]
+    payment_method = forms.ChoiceField(choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect)
+    card_number = forms.CharField(max_length=16, required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control'}))
+    cvv = forms.CharField(max_length=3, required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    efectivo = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+        
