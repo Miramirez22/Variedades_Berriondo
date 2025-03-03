@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout | Variedades el Berriondo{% endblock %}
+
+{% block content %}
+
+<!-- overview del pedido como lista -->
+<div class="col-md-9">
+    <div class="main-content tab-content">
+        <div class="tab-pane fade show active" id="datos-personales">
+            <section class="profile-section bg-white p-4 rounded shadow-sm">
+                <h3>Pedido</h3>
+                <table class="table checkout-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    <tbody>
+                        {% for item in request.user.carrito_set.all %}
+                            <tr>
+                                <td>{{item.cantidad}} x {{ item.producto.nombre }} á ${{ item.producto.precio }}</td>
+                                <td>
+                                    <form method="POST" action="{% url 'añadir_otro' item.id %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="cantidad" value="{{ item.cantidad|add:1 }}">
+                                        <button type="submit" class="btn btn-success btn-sm">añadir uno más</button>
+                                    </form>
+                                <td>${{ item.subtotal}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p><b>Precio total: ${{ total_price }}</b></p>  
+            </section>
+       
+    </div>
+</div>
+
+
+{% endblock %}

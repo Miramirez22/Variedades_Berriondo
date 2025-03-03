@@ -3,14 +3,15 @@
 {% block title %}Carrito{% endblock %}
 
 {% block content %}
-<h2>Tu carrito</h2>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
 <div class="container-fluid main">
+    <h2>Tu carrito</h2>
 
     {% if request.user.is_authenticated %}
         {% if request.user.carrito_set.all %}
 
-        <h3>Productos en tu carrito:</h3>
+        <h4>Productos en tu carrito:</h4>
 
         <form method="POST" id="carrito-form">
             {% csrf_token %}
@@ -28,7 +29,7 @@
                 <tbody>
                     {% for item in request.user.carrito_set.all %}
                         <tr>
-                            <td>{{ item.producto.nombre }}</td>
+                            <td><b>{{ item.producto.nombre }}</b></td>
                             <td>${{ item.producto.precio }}</td>
                             <td>
                                 <form method="POST" action="{% url 'update_quantity' item.id %}">
@@ -52,9 +53,14 @@
                 <h3>Total: ${{ total_price }}</h3>
             </div>
 
-            <div class="checkout">
-                <a href="#" class="btn btn-primary">Pagar</a>    
+            <div class="return">
+                <a href="{% url 'index' %}" style="color: black;"> Seguir ojeando</a>    
             </div>
+
+            <div class="checkout">
+                <a href="{% url 'checkout' %}" class="btn btn-primary">Pagar</a>    
+            </div>
+            
 
         {% else %}
             <p>No hay productos en tu carrito.</p>

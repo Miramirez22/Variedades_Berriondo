@@ -136,6 +136,22 @@ def update_quantity(request, id):
         pass
     return redirect('carrito')
 
+def checkout(request):
+    total_price = sum(item.subtotal for item in request.user.carrito_set.all())
+
+    context = {
+        'total_price': total_price
+    }
+
+    return render(request, 'checkout.html', context)
+
+def añadir_otro(request, id):
+    item = get_object_or_404(Carrito, id=id, usuario=request.user)
+    item.cantidad += 1
+    item.save()
+    return redirect('checkout')
+
+
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)

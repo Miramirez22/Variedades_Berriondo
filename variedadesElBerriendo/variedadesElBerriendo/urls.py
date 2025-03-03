@@ -19,8 +19,9 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from general.views import index, search, product_detail, carrito, login_view, signup, profile, CustomLogoutView, add_to_cart, remove_from_cart, update_quantity
-
+from general.views import index, search, product_detail, carrito, login_view, signup, profile, CustomLogoutView
+# carrito, checkout
+from general.views import add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,5 +37,6 @@ urlpatterns = [
     path('add_to_cart/<int:id>/', add_to_cart, name='add_to_cart'),
     path('remove_from_cart/<int:id>/', remove_from_cart, name='remove_from_cart'),
     path('update_quantity/<int:id>/', update_quantity, name='update_quantity'),
-
+    path('checkout/', checkout, name='checkout'),
+    path('añadir_otro/<int:id>/', añadir_otro, name='añadir_otro'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
