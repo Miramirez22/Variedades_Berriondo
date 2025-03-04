@@ -84,8 +84,11 @@
         <div class="modal-header">
             <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
         </div>
-        <div class="modal-body">
-            Ay no me hagas eso ome! Creo que no quieres eliminar este producto de tu carrito, lo necesitas, te van a envidiar por este
+        <div class="modal-body d-flex" style="display: flex; justify-content: space-between; align-items: center;">
+            <img src="{% static 'img/berriondo/Berriondo_irritado.png' %}" alt="Berriondo_cara" class="popup-pic" style="width: 50%; height: auto; object-fit: contain;">
+            <div class="popup-text" style="width: 50%; padding-left: 20px; font-size: 16px;">
+                Ay no me hagas eso ome! Creo que no quieres eliminar este producto de tu carrito, lo necesitas, te van a envidiar por este
+            </div>
         </div>
         <div class="modal-footer">
         <form method="POST" id="deleteForm">

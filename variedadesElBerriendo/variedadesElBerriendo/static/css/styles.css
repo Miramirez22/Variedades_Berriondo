@@ -207,3 +207,26 @@ body {
 .return-carrito{
     background-color: #007bff; 
 }
+
+/* POPUPS */
+.modal-body {
+    display: flex; 
+    justify-content: space-between; /* imagen y texto se colocan en la misma fila */
+    align-items: center; 
+    width: 100%;
+    max-width: 800px;
+}
+
+.popup-pic {
+    width: 50%; /* la imagen toma la mitad del espacio */
+    height: auto; 
+    object-fit: contain; 
+    max-width: 20px;
+
+}
+
+.popup-text {
+    width: 50%; /* el texto la otra mitad del popup */
+    padding-left: 20px; 
+    font-size: 16px; 
+}
