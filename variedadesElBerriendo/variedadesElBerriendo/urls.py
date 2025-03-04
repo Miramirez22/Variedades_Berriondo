@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from general.views import index, search, product_detail, carrito, login_view, signup, profile, CustomLogoutView
+from general.views import index, search, product_detail, carrito, login_view, signup, profile, CustomLogoutView, profile_edit
 # carrito, checkout
 from general.views import add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro
 
@@ -28,6 +28,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', login_view, name='login'),
     path('profile/', profile, name='profile'),
+    path('profile/edit/', profile_edit, name='profile_edit'),
     path('carrito/', carrito, name='carrito'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('', index, name='index'),
@@ -39,4 +40,4 @@ urlpatterns = [
     path('update_quantity/<int:id>/', update_quantity, name='update_quantity'),
     path('checkout/', checkout, name='checkout'),
     path('añadir_otro/<int:id>/', añadir_otro, name='añadir_otro'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

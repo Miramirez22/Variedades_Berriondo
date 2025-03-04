@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserForm, PaymentForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
+from .models import UserProfile
 
 
 # Create your views here.
@@ -163,18 +164,16 @@ def añadir_otro(request, id):
 
 
 def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                auth_login(request, user)
-                return redirect('profile')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect("profile")
+        else:
+            return render(request, "login.html", {"error": "Nombre de usuario o contraseña incorrectos"})
+    return render(request, "login.html")
 
 def signup(request):
     if request.method == "POST":
@@ -189,7 +188,26 @@ def signup(request):
 
 @login_required(login_url='login')
 def profile(request):
-    return render(request, 'profile.html', {'profile': request.user})
+    return render(request, "profile.html")
+
+@login_required(login_url='login')
+def profile_edit(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == "POST":
+        form = CustomUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+    else:
+        initial_data = {
+            'address': user_profile.address,
+            'payment_method': user_profile.payment_method,
+            'card_number': user_profile.card_number,
+            'expiration_date': user_profile.expiration_date,
+            'cvv': user_profile.cvv,
+        }
+        form = CustomUserForm(instance=request.user, initial=initial_data)
+    return render(request, "profile_edit.html", {"form": form})
 
 
 from django.contrib.auth.views import LogoutView
