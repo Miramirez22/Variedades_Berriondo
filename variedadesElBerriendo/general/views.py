@@ -173,6 +173,10 @@ def login_view(request):
             return redirect("profile")
         else:
             return render(request, "login.html", {"error": "Nombre de usuario o contraseña incorrectos"})
+        
+    if request.user.is_authenticated:
+        return redirect("profile")
+    
     return render(request, "login.html")
 
 def signup(request):
