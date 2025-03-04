@@ -127,7 +127,7 @@ STATICFILES_DIRS = [BASE_DIR / "variedadesElBerriendo/static"]
 BASE_DIR2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = [BASE_DIR / "variedadesElBerriendo/static/img/"]
+MEDIA_ROOT = os.path.join(BASE_DIR2, "variedadesElBerriendo", "static", "img")
 
 # Configuración de la sesión
 SESSION_COOKIE_AGE = 1209600  # Dos semanas
