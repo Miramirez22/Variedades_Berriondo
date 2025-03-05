@@ -54,24 +54,57 @@
                         Regresar sin comprar
                     </a>
 
-
-
                     <!-- Modal -->
-                    <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                    <div class="modal fade" id="miModal" tabindex="-1"
+                        aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg"> <!-- Modal grande -->
                             <div class="modal-content">
-                                <div class="modal-body d-flex">
-                                    <!-- Imagen a la izquierda -->
-                                    <div class="col-6">
-                                        <img src="{% static 'img/berriondo/Berriondo_cara_enfadado.png' %}" alt="Imagen"
-                                            class="img-fluid rounded-start">
+                                <div class="modal-body">
+                                    <!-- Sección principal del modal -->
+                                    <div class="d-flex">
+                                        <!-- Imagen a la izquierda -->
+                                        <div class="col-5">
+                                            <img src="{% static 'img/berriondo/Berriondo_cara_enfadado.png' %}"
+                                                alt="Imagen" class="img-fluid rounded-start" width="200">
+                                        </div>
+                                        <!-- Mensaje a la derecha -->
+                                        <div class="col-5 d-flex flex-column justify-content-center p-3">
+                                            <h5 class="modal-title" id="modalLabel">¿En serio se me va a ir sin comprar?
+                                            </h5>
+                                            <p>Me va a hacer cogerle tristeza, mas bien vea que le tengo mas cosas
+                                                traidas
+                                                de donde traen las mejoras cosas, 1A puespuespuespuespues</p>
+                                            <button type="button" class="btn btn-secondary mt-2"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
                                     </div>
-                                    <!-- Mensaje a la derecha -->
-                                    <div class="col-6 d-flex flex-column justify-content-center p-3">
-                                        <h5 class="modal-title" id="modalLabel">¿En serio se me va a ir sin comprar?</h5>
-                                        <p>no mijo me va a hacer cogerle tristeza, mas bien vea que le tengo mas cosas traidas de donde traen las mejoras cosas, 1A puespuespuespuespues</p>
-                                        <button type="button" class="btn btn-secondary mt-2"
-                                            data-bs-dismiss="modal">Cerrar</button>
+
+                                    <!-- Sección del carrusel -->
+                                    <div class="mt-4">
+                                        <h5 class="text-center">🎁 Más productos recomendados 🎁</h5>
+                                        <div id="carruselProductos" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                {% for producto_similar in productos_similares %}
+                                                <!-- Producto 1 -->
+                                                <div class="carousel-item {% if forloop.first %}active{% endif %} text-center">
+                                                    <img src="{% if producto_similar.imagen %}{{ producto_similar.imagen.url }}{% else %}{% static 'img/placeholder.png' %}{% endif %}"
+                                                        class="d-block mx-auto rounded" alt="Producto 1" width="150">
+                                                    <h6 class="mt-2">{{ producto_similar.nombre }}</h6>
+                                                    <a href="#" class="btn btn-primary btn-sm">Ver más</a>
+                                                </div>
+                                                {% endfor %}
+                                               
+                                            </div>
+                                            <!-- Controles del carrusel -->
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carruselProductos" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carruselProductos" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
