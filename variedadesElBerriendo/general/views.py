@@ -301,6 +301,11 @@ def change_password(request):
         form = PasswordChangeForm()
     return render(request, 'change_password.html', {'form': form})
 
+#panel de admin
+@login_required
+def admin_panel(request):
+    return render(request, 'admin_panel.html')
+
 
 class CustomLogoutView(LogoutView):
     def get(self, request, *args, **kwargs):
