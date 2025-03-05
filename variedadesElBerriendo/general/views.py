@@ -9,6 +9,7 @@ from .models import UserProfile
 from django.contrib.auth import update_session_auth_hash
 from .forms import UserForm, UserProfileForm, AddressForm, PaymentMethodForm, PasswordChangeForm
 from .models import UserProfile, Address, PaymentMethod, Order
+from django.contrib.auth.views import LogoutView
 
 
 # Create your views here.
@@ -301,7 +302,7 @@ def change_password(request):
     return render(request, 'change_password.html', {'form': form})
 
 
-from django.contrib.auth.views import LogoutView
 class CustomLogoutView(LogoutView):
-    next_page = 'index'
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)  # Forzar que GET funcione como POST
 

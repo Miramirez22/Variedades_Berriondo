@@ -18,13 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-
-
 from general.views import (
     index, search, product_detail, carrito, login_view, signup, profile, profile_edit,
     address_add, address_delete, address_prefer, payment_method_add, payment_method_delete, payment_method_prefer, CustomLogoutView, add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro
 )
-
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
