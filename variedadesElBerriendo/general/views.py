@@ -6,6 +6,9 @@ from .forms import CustomUserForm, PaymentForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
+from django.contrib.auth import update_session_auth_hash
+from .forms import UserForm, UserProfileForm, AddressForm, PaymentMethodForm, PasswordChangeForm
+from .models import UserProfile, Address, PaymentMethod, Order
 
 
 # Create your views here.
@@ -192,26 +195,110 @@ def signup(request):
 
 @login_required(login_url='login')
 def profile(request):
-    return render(request, "profile.html")
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    addresses = Address.objects.filter(user=request.user)
+    payment_methods = PaymentMethod.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
+
+    context = {
+        'user_profile': user_profile,
+        'addresses': addresses,
+        'payment_methods': payment_methods,
+        'orders': orders,
+    }
+    return render(request, 'profile.html', context)
 
 @login_required(login_url='login')
 def profile_edit(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     if request.method == "POST":
-        form = CustomUserForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect("profile")
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, instance=user_profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile')
     else:
-        initial_data = {
-            'address': user_profile.address,
-            'payment_method': user_profile.payment_method,
-            'card_number': user_profile.card_number,
-            'expiration_date': user_profile.expiration_date,
-            'cvv': user_profile.cvv,
-        }
-        form = CustomUserForm(instance=request.user, initial=initial_data)
-    return render(request, "profile_edit.html", {"form": form})
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=user_profile)
+    return render(request, 'profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
+
+@login_required(login_url='login')
+def address_add(request):
+    if request.method == "POST":
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            return redirect('profile')
+    else:
+        form = AddressForm()
+    return render(request, 'address_form.html', {'form': form})
+
+@login_required(login_url='login')
+def address_delete(request, id):
+    address = get_object_or_404(Address, id=id, user=request.user)
+    address.delete()
+    return redirect('profile')
+
+@login_required(login_url='login')
+def address_prefer(request, id):
+    Address.objects.filter(user=request.user).update(is_preferred=False)
+    address = get_object_or_404(Address, id=id, user=request.user)
+    address.is_preferred = True
+    address.save()
+    return redirect('profile')
+
+@login_required(login_url='login')
+def payment_method_add(request):
+    if request.method == "POST":
+        form = PaymentMethodForm(request.POST)
+        if form.is_valid():
+            payment_method = form.save(commit=False)
+            payment_method.user = request.user
+            payment_method.save()
+            return redirect('profile')
+    else:
+        form = PaymentMethodForm()
+    return render(request, 'payment_method_form.html', {'form': form})
+
+@login_required(login_url='login')
+def payment_method_delete(request, id):
+    payment_method = get_object_or_404(PaymentMethod, id=id, user=request.user)
+    payment_method.delete()
+    return redirect('profile')
+
+@login_required(login_url='login')
+def payment_method_prefer(request, id):
+    PaymentMethod.objects.filter(user=request.user).update(is_preferred=False)
+    payment_method = get_object_or_404(PaymentMethod, id=id, user=request.user)
+    payment_method.is_preferred = True
+    payment_method.save()
+    return redirect('profile')
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.POST)
+        if form.is_valid():
+            old_password = form.cleaned_data['old_password']
+            new_password = form.cleaned_data['new_password']
+            confirm_password = form.cleaned_data['confirm_password']
+            if new_password == confirm_password:
+                user = request.user
+                if user.check_password(old_password):
+                    user.set_password(new_password)
+                    user.save()
+                    update_session_auth_hash(request, user)  # Mantiene la sesión después de cambiar la contraseña
+                    return redirect('profile')
+                else:
+                    form.add_error('old_password', 'Contraseña actual incorrecta')
+            else:
+                form.add_error('confirm_password', 'Las contraseñas no coinciden')
+    else:
+        form = PasswordChangeForm()
+    return render(request, 'change_password.html', {'form': form})
 
 
 from django.contrib.auth.views import LogoutView
