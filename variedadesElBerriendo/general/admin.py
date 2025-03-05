@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Producto, Categoria  # Importa los modelos
+from .models import Producto, Categoria, Carrito, UserProfile  # Importa los modelos
 
 # Registra los modelos en el panel de administración
 class ProductoAdmin(admin.ModelAdmin):
@@ -9,3 +9,5 @@ class ProductoAdmin(admin.ModelAdmin):
 
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Categoria)
+admin.site.register(Carrito)
+admin.site.register(UserProfile)

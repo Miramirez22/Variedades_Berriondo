@@ -39,6 +39,34 @@ class UserProfile(models.Model):
     card_number = models.CharField(max_length=16, blank=True, null=True)
     expiration_date = models.DateField(blank=True, null=True)
     cvv = models.CharField(max_length=3, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses')
+    address = models.CharField(max_length=255)
+    is_preferred = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.address
+
+class PaymentMethod(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payment_methods')
+    card_number = models.CharField(max_length=16)
+    expiration_date = models.DateField()
+    cvv = models.CharField(max_length=3)
+    is_preferred = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"**** **** **** {self.card_number[-4:]}"
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    created_at = models.DateTimeField(auto_now_add=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    items = models.TextField()  # This can be a JSON field or a more complex structure in a real application
+
+    def __str__(self):
+        return f"Order {self.id} - {self.user.username}"

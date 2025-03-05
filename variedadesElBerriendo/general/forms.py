@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, Address, PaymentMethod
 
 class CustomUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Contraseña", required=False)
@@ -42,16 +42,55 @@ class CustomUserForm(forms.ModelForm):
             user_profile.cvv = self.cleaned_data['cvv']
             user_profile.save()
         return user
-    
-class PaymentForm(forms.Form):
-    PAYMENT_METHOD_CHOICES = [
-        ('tarjeta_credito', 'Tarjeta de crédito'),
-        ('tarjeta_debito', 'Tarjeta de débito'),
-        ('efectivo', 'Efectivo'),
-    ]
-    payment_method = forms.ChoiceField(choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect)
-    card_number = forms.CharField(max_length=16, required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    expiration_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control'}))
-    cvv = forms.CharField(max_length=3, required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    efectivo = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+class PaymentForm(forms.ModelForm):
+    card_number = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}), label="Número de tarjeta", required=True)
+    expiration_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control'}), label="Fecha de expiración", required=True)
+    cvv = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}), label="CVV", required=True)
+
+    class Meta:
+        model = UserProfile
+        fields = ["card_number", "expiration_date", "cvv"]
+
+class UserProfileForm(forms.ModelForm):
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Celular", required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ['phone_number']
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'username', 'email']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['address', 'is_preferred']
+        widgets = {
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'is_preferred': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+class PaymentMethodForm(forms.ModelForm):
+    class Meta:
+        model = PaymentMethod
+        fields = ['card_number', 'expiration_date', 'cvv', 'is_preferred']
+        widgets = {
+            'card_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'expiration_date': forms.DateInput(attrs={'class': 'form-control'}),
+            'cvv': forms.TextInput(attrs={'class': 'form-control'}),
+            'is_preferred': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+class PasswordChangeForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Contraseña actual")
+    new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Nueva contraseña")
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Confirmar nueva contraseña")
 

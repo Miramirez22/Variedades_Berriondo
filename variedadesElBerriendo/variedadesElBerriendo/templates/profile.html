@@ -2,16 +2,24 @@
 {% load static %}
 {% block title %}Perfil{% endblock %}
 
+{% if user.is_superuser %}
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-warning">Ir al Panel de Administración</a>
+{% endif %}
+
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <div class="container mt-5">
     <h1 class="text-center">Bienvenido, {{ user.username }}</h1>
+    <!--Botón visible solo para superusuarios -->
+    {% if user.is_superuser %}
+    <a href="{% url 'admin_panel' %}" class="btn btn-warning mt-3">Ir al Panel de Administración</a>
+    {% endif %}
     <div class="row mt-5">
         <div class="col-md-3">
             <div class="sidebar bg-light p-3 rounded shadow-sm">
-                <h2 class="text-center">Su Perfil Mijto!</h2>
+                <h2 class="text-center">Su Perfil</h2>
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#datos-personales" data-toggle="tab">Datos personales</a>
@@ -39,31 +47,48 @@
                         <p>Nombre: {{ user.first_name }}</p>
                         <p>Nombre de usuario: {{ user.username }}</p>
                         <p>Correo electrónico: {{ user.email }}</p>
+                        <p>Celular: {{ user.userprofile.phone_number }}</p>
                         <a href="{% url 'profile_edit' %}" class="btn btn-primary">Editar Perfil</a>
+                    
+
+                        
                     </section>
                 </div>
                 <div class="tab-pane fade" id="direcciones-guardadas">
                     <section class="profile-section bg-white p-4 rounded shadow-sm">
                         <h3>Direcciones guardadas</h3>
-                        <!-- Contenido de direcciones guardadas -->
+                        {% for address in addresses %}
+                            <p>{{ address.address }} {% if address.is_preferred %}(Preferida){% endif %}</p>
+                            <a href="{% url 'address_prefer' address.id %}" class="btn btn-secondary">Marcar como preferida</a>
+                            <a href="{% url 'address_delete' address.id %}" class="btn btn-danger">Eliminar</a>
+                        {% endfor %}
+                        <a href="{% url 'address_add' %}" class="btn btn-primary">Añadir dirección</a>
                     </section>
                 </div>
                 <div class="tab-pane fade" id="metodos-pago">
                     <section class="profile-section bg-white p-4 rounded shadow-sm">
                         <h3>Métodos de pago</h3>
-                        <!-- Contenido de métodos de pago -->
+                        {% for payment_method in payment_methods %}
+                            <p>Tarjeta de crédito: **** **** **** {{ payment_method.card_number|slice:"-4" }} {% if payment_method.is_preferred %}(Preferida){% endif %}</p>
+                            <a href="{% url 'payment_method_prefer' payment_method.id %}" class="btn btn-secondary">Marcar como preferida</a>
+                            <a href="{% url 'payment_method_delete' payment_method.id %}" class="btn btn-danger">Eliminar</a>
+                        {% endfor %}
+                        <a href="{% url 'payment_method_add' %}" class="btn btn-primary">Añadir método de pago</a>
                     </section>
                 </div>
                 <div class="tab-pane fade" id="seguridad">
                     <section class="profile-section bg-white p-4 rounded shadow-sm">
                         <h3>Seguridad</h3>
-                        <!-- Contenido de seguridad -->
+                        <a href="{% url 'password_change' %}" class="btn btn-primary">Cambiar contraseña</a>
                     </section>
                 </div>
                 <div class="tab-pane fade" id="pedidos">
                     <section class="profile-section bg-white p-4 rounded shadow-sm">
                         <h3>Pedidos</h3>
-                        <!-- Contenido de pedidos -->
+                        {% for order in orders %}
+                            <p>Pedido {{ order.id }} - {{ order.created_at }} - ${{ order.total_amount }}</p>
+                            <p>Items: {{ order.items }}</p>
+                        {% endfor %}
                     </section>
                 </div>
             </div>

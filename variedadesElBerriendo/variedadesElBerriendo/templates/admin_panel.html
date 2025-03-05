@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Panel de Administración</h1>
+    <p class="text-center">Bienvenido, {{ request.user.username }}</p>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Productos</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total: 50</h5>
+                    <p class="card-text">Gestión de productos y stock.</p>
+                    <a href="#" class="btn btn-light">Ver más</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Usuarios</div>
+                <div class="card-body">
+                    <h5 class="card-title">Registrados: 200</h5>
+                    <p class="card-text">Administración de clientes y permisos.</p>
+                    <a href="#" class="btn btn-light">Ver más</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Órdenes</div>
+                <div class="card-body">
+                    <h5 class="card-title">Pendientes: 15</h5>
+                    <p class="card-text">Administración de órdenes y pagos.</p>
+                    <a href="#" class="btn btn-light">Ver más</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

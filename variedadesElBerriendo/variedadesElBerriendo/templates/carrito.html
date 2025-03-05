@@ -70,7 +70,7 @@
      
 
         {% else %}
-            <p>No hay productos en tu carrito.</p>
+            <p>No hay productos en tu carrito, de que te vas a antojar?</p>
         {% endif %}
     {% else %}
         <p>Debes iniciar sesión para ver tu carrito.</p>
@@ -87,14 +87,14 @@
         <div class="modal-body d-flex" style="display: flex; justify-content: space-between; align-items: center;">
             <img src="{% static 'img/berriondo/Berriondo_irritado.png' %}" alt="Berriondo_cara" class="popup-pic" style="width: 50%; height: auto; object-fit: contain;">
             <div class="popup-text" style="width: 50%; padding-left: 20px; font-size: 16px;">
-                Ay no me hagas eso ome! Creo que no quieres eliminar este producto de tu carrito, lo necesitas, te van a envidiar por este
+                Ay no me hagas eso ome! Yo se que te equivocaste de boton, menos mal para eso estoy yo, comprelo pues!
             </div>
         </div>
         <div class="modal-footer">
         <form method="POST" id="deleteForm">
             {% csrf_token %}
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Con razón, lo necesito!</button>
-            <button type="submit" class="btn btn-danger">si, seguro/a</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tenés razon ome, lo necesito!</button>
+            <button type="submit" class="btn btn-danger">Voy a dar una vueltica!</button>
         </form>
         </div>
     </div>

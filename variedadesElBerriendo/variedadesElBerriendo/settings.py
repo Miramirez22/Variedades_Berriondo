@@ -136,7 +136,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # Configuración de autenticación
 LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = 'profile'
 
 # Default primary key field type
