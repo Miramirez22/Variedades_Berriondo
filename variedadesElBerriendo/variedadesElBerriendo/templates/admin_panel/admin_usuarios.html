@@ -18,7 +18,7 @@
                 <tr>
                     <td>{{ usuario.id }}</td>
                     <td>{{ usuario.username }}</td>
-                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.email }}</td></td>
                     <td>{% if usuario.is_superuser %}✔{% else %}✖{% endif %}</td>
                     <td>
                         <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-warning btn-sm">Editar</a>

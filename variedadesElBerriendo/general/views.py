@@ -363,11 +363,11 @@ def eliminar_producto(request, producto_id):
 
     return render(request, 'admin_panel/admin_prod/eliminar_producto.html', {'producto': producto})
 
-
+from .models import User
 #usuarios en admin_panel
 def admin_usuarios(request):
     total_usuarios = UserProfile.objects.count()
-    usuarios = UserProfile.objects.all()  # Obtener todos los usuarios
+    usuarios = User.objects.all()  # Obtener todos los usuarios
     return render(request, 'admin_panel/admin_usuarios.html', {'total_usuarios': total_usuarios, 'usuarios': usuarios})
 
 
@@ -383,7 +383,7 @@ def agregar_usuario(request):
     return render(request, 'admin_panel/admin_usuarios/agregar_usuario.html', {'form': form})
 
 def editar_usuario(request, usuario_id):
-    usuario = get_object_or_404(UserForm, id=usuario_id)
+    usuario = get_object_or_404(User, id=usuario_id)
     if request.method == "POST":
         form = UserForm(request.POST, instance=usuario)
         if form.is_valid():
