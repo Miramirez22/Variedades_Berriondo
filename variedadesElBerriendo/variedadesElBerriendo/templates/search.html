@@ -63,13 +63,38 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ producto.nombre }}</h5>
                     <p class="card-text">${{ producto.precio }}</p>
-                    <button class="btn btn-primary">Comprar</button>
+                    <a class="btn btn-primary" href="{% url 'product_detail' producto.id %}">Comprar</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     {% else %}
         <p class="text-center mt-3">No se encontraron resultados para "{{ request.GET.q }}".</p>
+
+        <div class="d-flex justify-content-center">
+        <div class="card shadow-lg rounded p-3" style="max-width: 450px;">
+            <div class="row g-0 align-items-center">
+                <!-- Imagen del personaje -->
+                <div class="col-4 text-center">
+                    <img src="{% static 'img/berriondo/Berriondo_vertical_hablando_sin_fondo.png' %}" class="img-fluid rounded-circle" alt="Recomendador">
+                </div>
+        
+                <!-- Texto y producto -->
+                <div class="col-8">
+                    <div class="card-body">
+                        <h6 class="card-title">¡Aqui lo que no tenemos, se le consigue! 🎉</h6>
+                        <p class="card-text">Aqui le tengo uno igualito practicamente, si ladra es por el calor: <strong>{{ producto_random.nombre }}</strong></p>
+        
+                        <!-- Imagen y botón del producto -->
+                        <div class="d-flex align-items-center">
+                            <img src="{{ producto_random.imagen.url }}" class="img-fluid rounded" alt="{{ producto_random.nombre }}" style="width: 80px; height: 80px; object-fit: cover;">
+                            <a href="{% url 'product_detail' producto_random.id %}" class="btn btn-primary btn-sm ms-3">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}
 </div>
 

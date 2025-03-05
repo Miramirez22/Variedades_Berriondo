@@ -31,6 +31,20 @@
         .search-input {
             width: 100%;
         }
+
+        .personaje-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px; /* Ajusta el tamaño según la imagen */
+            height: auto;
+            z-index: 1000; /* Para que esté encima de otros elementos */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .personaje-flotante:hover {
+            transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+        }
     </style>
 </head>
 

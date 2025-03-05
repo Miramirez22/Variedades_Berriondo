@@ -56,7 +56,10 @@ def search(request):
     if precio_max:
         productos = productos.filter(precio__lte=precio_max)  # Precio máximo
 
-    return render(request, 'search.html', {'productos': productos})
+    productos2 = list(Producto.objects.all())
+    producto_random = random.choice(productos2) if productos2 else None
+
+    return render(request, 'search.html', {'productos': productos, "producto_random": producto_random})
 
 def product_detail(request, id):
     # Obtener producto por ID
