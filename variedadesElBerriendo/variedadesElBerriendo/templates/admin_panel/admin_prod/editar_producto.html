@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Editar Producto</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_nombre" class="form-label">Nombre:</label>
+            {{ form.nombre }}
+        </div>
+        <div class="mb-3">
+            <label for="id_descripcion" class="form-label">Descripción:</label>
+            {{ form.descripcion }}
+        </div>
+        <div class="mb-3">
+            <label for="id_precio" class="form-label">Precio:</label>
+            {{ form.precio }}
+        </div>
+        <div class="mb-3">
+            <label for="id_stock" class="form-label">Stock:</label>
+            {{ form.stock }}
+        </div>
+        <div class="mb-3">
+            <label for="id_imagen" class="form-label">Imagen:</label>
+            {{ form.imagen }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a href="{% url 'admin_productos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

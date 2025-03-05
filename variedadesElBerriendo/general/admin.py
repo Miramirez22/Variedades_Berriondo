@@ -6,7 +6,13 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'categoria', 'precio', 'stock', 'fecha_creacion')  # Muestra estas columnas
     list_filter = ('categoria',)  # Agrega filtros por categoría
     search_fields = ('nombre',)  # Agrega una barra de búsqueda por nombre
-
+"""""
+@admin.register(Producto)
+class ProductoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'categoria', 'precio', 'stock', 'fecha_creacion')  # Muestra estas columnas en el admin
+    list_filter = ('categoria',)  # Filtro por categoría
+    search_fields = ('nombre', 'descripcion')  # Barra de búsqueda
+"""
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Categoria)
 admin.site.register(Carrito)
