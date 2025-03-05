@@ -21,6 +21,8 @@ from django.conf import settings
 from general.views import (
     index, search, product_detail, carrito, login_view, signup, profile, profile_edit,admin_panel,
     address_add, address_delete, address_prefer, payment_method_add, payment_method_delete, payment_method_prefer, CustomLogoutView, add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro
+    ,admin_panel,admin_productos,admin_usuarios,admin_ordenes,agregar_producto,editar_producto, eliminar_producto,
+    agregar_usuario, editar_usuario, eliminar_usuario, editar_orden
 )
 from django.contrib.auth import views as auth_views
 
@@ -50,5 +52,29 @@ urlpatterns = [
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
 
     #panel de administrador
-    path('admin_panel/', admin_panel, name='admin_panel')
+    path('admin_panel/', admin_panel, name='admin_panel'),
+
+    #panel de administrar productos
+    path('admin_panel/admin_productos/', admin_productos, name='admin_productos'),
+    path('admin_panel/admin_productos/agregar_producto/', agregar_producto, name='agregar_producto'),
+    path('admin_panel/admin_productos/editar/<int:id>/', editar_producto, name='editar_producto'),
+    path('admin_panel/admin_productos/eliminar/<int:producto_id>/', eliminar_producto, name='eliminar_producto'),
+    
+    
+    #panel de administrar usuarios
+    path('admin_usuarios/', admin_usuarios, name='admin_usuarios'),
+
+    path('admin_panel/admin_usuarios/agregar_usuario/', agregar_usuario, name='agregar_usuario'),
+    path('admin_panel/admin_usuarios/editar_usuario/<int:usuario_id>/', editar_usuario, name='editar_usuario'),
+    path('admin_panel/admin_usuarios/eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
+
+    # Panel de administrar ordenes
+    path('admin_panel/admin_ordenes/', admin_ordenes, name='admin_ordenes'),
+    
+    path('admin_panel/admin_ordenes/editar_orden/<int:order_id>/', editar_orden, name='editar_orden'),  
+
+
+
+   
+   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

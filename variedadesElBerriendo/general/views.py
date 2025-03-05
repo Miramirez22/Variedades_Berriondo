@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
 from django.contrib.auth import update_session_auth_hash
-from .forms import UserForm, UserProfileForm, AddressForm, PaymentMethodForm, PasswordChangeForm
+from .forms import UserForm, UserProfileForm, AddressForm, PaymentMethodForm, PasswordChangeForm, OrderForm
 from .models import UserProfile, Address, PaymentMethod, Order
 from django.contrib.auth.views import LogoutView
 
@@ -307,7 +307,123 @@ def change_password(request):
 #panel de admin
 @login_required
 def admin_panel(request):
-    return render(request, 'admin_panel.html')
+    total_productos = Producto.objects.count()  # total de productos
+    total_usuarios = UserProfile.objects.count()  # Total de usuarios registrados
+    total_ordenes = Order.objects.count() #total de orenes 
+    return render(request, 'admin_panel/admin_panel.html', {'total_productos': total_productos,'total_usuarios': total_usuarios, 'total_ordenes':total_ordenes})
+
+#productos en admin_panel
+def admin_productos(request):
+    total_productos = Producto.objects.count()
+    productos = Producto.objects.all()  # Obtener todos los productos
+    return render(request, 'admin_panel/admin_productos.html', {'total_productos': total_productos, 'productos': productos})
+
+#seccion de pag de productos
+from .forms import ProductoForm, UserForm
+ 
+def agregar_producto(request):
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_productos')
+    else:
+        form = ProductoForm()
+
+    return render(request, 'admin_panel/admin_prod/agregar_producto.html', {'form': form})
+
+def editar_producto(request, id):
+    producto = get_object_or_404(Producto, id=id)  # Busca el producto
+
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_productos') 
+        else:
+            print("Errores del formulario:", form.errors)  # depura errores
+    else:
+        form = ProductoForm(instance=producto)  # Cargar producto en el formulario
+
+    return render(request, 'admin_panel/admin_prod/editar_producto.html', {'form': form})
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404, redirect
+
+@csrf_exempt  # Solo si no pasas CSRF en el request, pero mejor usa el token
+def eliminar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    
+    if request.method == "POST":
+        producto.delete()
+        return JsonResponse({"success": True})  # Devuelve JSON en vez de redirigir
+
+    return JsonResponse({"error": "Método no permitido"}, status=400)
+
+
+#usuarios en admin_panel
+def admin_usuarios(request):
+    total_usuarios = UserProfile.objects.count()
+    usuarios = UserProfile.objects.all()  # Obtener todos los usuarios
+    return render(request, 'admin_panel/admin_usuarios.html', {'total_usuarios': total_usuarios, 'usuarios': usuarios})
+
+
+def agregar_usuario(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_usuarios')
+    else:
+        form = UserForm()
+
+    return render(request, 'admin_panel/admin_usuarios/agregar_usuario.html', {'form': form})
+
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(UserForm, id=usuario_id)
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_usuarios')
+    else:
+        form = UserForm(instance=usuario)
+
+    return render(request, 'admin_panel/admin_usuarios/editar_usuario.html', {'form': form, 'usuario': usuario})
+
+def eliminar_usuario(request, usuario_id):
+    usuario = get_object_or_404(UserProfile, id=usuario_id)
+    if request.method == "POST":
+        usuario.delete()
+        return redirect('admin_usuarios')
+
+    return render(request, 'admin_panel/eliminar_usuario.html', {'usuario': usuario})
+
+
+
+
+#Ordenes en admin_panel
+def admin_ordenes(request):
+    total_ordenes = Order.objects.count()
+    orders = Order.objects.all()  # Obtener todas las órdenes
+    return render(request, 'admin_panel/admin_ordenes.html', {'total_ordenes': total_ordenes, 'ordenes': orders})
+
+
+def editar_orden(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+
+    if request.method == "POST":
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_ordenes')  # Redirigir a la lista de órdenes
+    else:
+        form = OrderForm(instance=order)
+
+    return render(request, 'admin_panel/admin_ordenes/editar_orden.html', {'form': form})
+
 
 
 class CustomLogoutView(LogoutView):

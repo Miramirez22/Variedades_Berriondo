@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import UserProfile, Address, PaymentMethod
+from .models import UserProfile, Address, PaymentMethod, Order
+from general.models import Producto
 
 class CustomUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Contraseña", required=False)
@@ -93,4 +94,21 @@ class PasswordChangeForm(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Contraseña actual")
     new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Nueva contraseña")
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Confirmar nueva contraseña")
+
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'descripcion', 'precio', 'stock', 'categoria', 'imagen'] 
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['user', 'total_amount', 'items']
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-control'}),
+            'total_amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'items': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
