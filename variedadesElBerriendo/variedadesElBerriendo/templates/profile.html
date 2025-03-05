@@ -2,12 +2,20 @@
 {% load static %}
 {% block title %}Perfil{% endblock %}
 
+{% if user.is_superuser %}
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-warning">Ir al Panel de Administración</a>
+{% endif %}
+
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <div class="container mt-5">
     <h1 class="text-center">Bienvenido, {{ user.username }}</h1>
+    <!--Botón visible solo para superusuarios -->
+    {% if user.is_superuser %}
+    <a href="{% url 'admin_panel' %}" class="btn btn-warning mt-3">Ir al Panel de Administración</a>
+    {% endif %}
     <div class="row mt-5">
         <div class="col-md-3">
             <div class="sidebar bg-light p-3 rounded shadow-sm">
@@ -41,6 +49,9 @@
                         <p>Correo electrónico: {{ user.email }}</p>
                         <p>Celular: {{ user.userprofile.phone_number }}</p>
                         <a href="{% url 'profile_edit' %}" class="btn btn-primary">Editar Perfil</a>
+                    
+
+                        
                     </section>
                 </div>
                 <div class="tab-pane fade" id="direcciones-guardadas">

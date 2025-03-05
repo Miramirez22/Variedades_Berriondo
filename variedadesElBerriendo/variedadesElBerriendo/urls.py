@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from general.views import (
-    index, search, product_detail, carrito, login_view, signup, profile, profile_edit,
+    index, search, product_detail, carrito, login_view, signup, profile, profile_edit,admin_panel,
     address_add, address_delete, address_prefer, payment_method_add, payment_method_delete, payment_method_prefer, CustomLogoutView, add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro
 )
 from django.contrib.auth import views as auth_views
@@ -48,4 +48,7 @@ urlpatterns = [
     path('añadir_otro/<int:id>/', añadir_otro, name='añadir_otro'),
     path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_change_form.html'), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+
+    #panel de administrador
+    path('admin_panel/', admin_panel, name='admin_panel')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
