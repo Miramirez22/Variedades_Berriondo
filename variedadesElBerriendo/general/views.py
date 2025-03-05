@@ -336,23 +336,25 @@ def editar_producto(request, id):
     producto = get_object_or_404(Producto, id=id)  # Busca el producto
 
     if request.method == "POST":
+        print("Datos recibidos:", request.POST)  # 🔹 Verificar datos enviados
+        print("Archivos recibidos:", request.FILES)  # 🔹 Verificar si hay archivos
+
         form = ProductoForm(request.POST, request.FILES, instance=producto)
+        
+
         if form.is_valid():
             form.save()
+            producto.refresh_from_db()  # 🔹 Asegurar que los cambios se reflejan
+            print("Producto actualizado:", producto.nombre, producto.precio)  # 🔹 Verificar cambios
             return redirect('admin_productos') 
         else:
-            print("Errores del formulario:", form.errors)  # depura errores
+            print("Errores del formulario:", form.errors)  # 🔹 Mostrar errores
     else:
         form = ProductoForm(instance=producto)  # Cargar producto en el formulario
 
     return render(request, 'admin_panel/admin_prod/editar_producto.html', {'form': form})
 
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404, redirect
-
-@csrf_exempt  # Solo si no pasas CSRF en el request, pero mejor usa el token
 def eliminar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == "POST":

@@ -99,16 +99,28 @@ class PasswordChangeForm(forms.Form):
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['nombre', 'descripcion', 'precio', 'stock', 'categoria', 'imagen'] 
-
+        fields = ['nombre', 'descripcion', 'precio', 'stock', 'categoria', 'imagen']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+            'stock': forms.NumberInput(attrs={'class': 'form-control'}),
+            'categoria': forms.Select(attrs={'class': 'form-control'}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
 
 class OrderForm(forms.ModelForm):
+    items = forms.ModelMultipleChoiceField(
+        queryset=Producto.objects.all(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'}),
+        label="Productos en la orden"
+    )
+
     class Meta:
         model = Order
         fields = ['user', 'total_amount', 'items']
         widgets = {
             'user': forms.Select(attrs={'class': 'form-control'}),
             'total_amount': forms.NumberInput(attrs={'class': 'form-control'}),
-            'items': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
