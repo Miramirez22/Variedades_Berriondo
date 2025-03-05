@@ -62,15 +62,24 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['phone_number']
 
+
+# ?? usuarios?
 class UserForm(forms.ModelForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        required=False  # Opcional en edición
+    )
+
     class Meta:
         model = User
-        fields = ['first_name', 'username', 'email']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
+
 
 class AddressForm(forms.ModelForm):
     class Meta:
@@ -102,4 +111,9 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = ['nombre', 'descripcion', 'precio', 'stock', 'categoria', 'imagen'] 
 
+class UsuarioForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput, required=False)  # Campo de contraseña
 
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password']  # Campos del formulario

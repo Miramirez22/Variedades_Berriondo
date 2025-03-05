@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-4">
-    <h1>Editar Usuario: {{ usuario.username }}</h1>
+    <h1>Editar Usuario</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         <a href="{% url 'admin_usuarios' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
