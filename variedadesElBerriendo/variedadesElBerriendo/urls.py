@@ -62,7 +62,7 @@ urlpatterns = [
     
     
     #panel de administrar usuarios
-    path('admin_usuarios/', admin_usuarios, name='admin_usuarios'),
+    path('admin_panel/admin_usuarios/', admin_usuarios, name='admin_usuarios'),
 
     path('admin_panel/admin_usuarios/agregar_usuario/', agregar_usuario, name='agregar_usuario'),
     path('admin_panel/admin_usuarios/editar_usuario/<int:usuario_id>/', editar_usuario, name='editar_usuario'),
