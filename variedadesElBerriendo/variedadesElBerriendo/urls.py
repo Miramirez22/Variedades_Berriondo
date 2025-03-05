@@ -23,7 +23,7 @@ from general.views import (
     address_add, address_delete, address_prefer, payment_method_add, payment_method_delete, payment_method_prefer, CustomLogoutView, add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro,
     #ccmm
     admin_panel,admin_productos,admin_usuarios,admin_ordenes,agregar_producto,editar_producto, eliminar_producto,
-    agregar_usuario, editar_usuario, eliminar_usuario,
+    agregar_usuario, editar_usuario, eliminar_usuario, editar_orden
 )
 from django.contrib.auth import views as auth_views
 
@@ -67,8 +67,9 @@ urlpatterns = [
     path('admin_panel/admin_usuarios/editar/<int:usuario_id>/', editar_usuario, name='editar_usuario'),
     path('admin_panel/admin_usuarios/eliminar/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
 
-
-    path('admin_ordenes/', admin_ordenes, name='admin_ordenes'),
+    #Panel de administrar ordenes
+    path('admin_panel/admin_ordenes/', admin_ordenes, name='admin_ordenes'),
+    path('admin_panel/admin_ordenes/editar_orden/<int:order_id>/', editar_orden, name='editar_orden'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

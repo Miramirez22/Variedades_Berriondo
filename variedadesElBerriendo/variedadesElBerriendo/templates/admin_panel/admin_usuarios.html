@@ -33,12 +33,14 @@
 </div>
 
 <script>
-    function confirmarEliminacion(usuarioId) {
+    function confirmarEliminacion(event, usuarioId) {
+        event.preventDefault();
         if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
             fetch(`/admin_panel/admin_usuarios/eliminar/${usuarioId}/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
                 }
             })
             .then(response => {
