@@ -111,17 +111,9 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = ['nombre', 'descripcion', 'precio', 'stock', 'categoria', 'imagen'] 
 
+class UsuarioForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput, required=False)  # Campo de contraseña
 
-
-
-from .models import Order
-# formulario para ordenes
-class OrderForm(forms.ModelForm):
     class Meta:
-        model = Order
-        fields = ['user', 'total_amount', 'items']
-        widgets = {
-            'user': forms.Select(attrs={'class': 'form-control'}),
-            'total_amount': forms.NumberInput(attrs={'class': 'form-control'}),
-            'items': forms.Textarea(attrs={'class': 'form-control'}),
-        }
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password']  # Campos del formulario
