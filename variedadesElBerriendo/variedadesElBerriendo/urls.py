@@ -58,8 +58,8 @@ urlpatterns = [
     path('admin_panel/admin_productos/', admin_productos, name='admin_productos'),
     path('admin_panel/admin_productos/agregar_producto/', agregar_producto, name='agregar_producto'),
     path('admin_panel/admin_productos/editar/<int:id>/', editar_producto, name='editar_producto'),
-    path('admin_panel/admin_productos/eliminar/<int:producto_id>/', eliminar_producto, name='eliminar_producto'),
-    
+    #path('admin_panel/admin_productos/eliminar/<int:producto_id>/', eliminar_producto, name='eliminar_producto'),
+    path('admin_panel/admin_productos/productos/eliminar/<int:producto_id>/', eliminar_producto, name='eliminar_producto'),
     
     #panel de administrar usuarios
     path('admin_panel/admin_usuarios/', admin_usuarios, name='admin_usuarios'),

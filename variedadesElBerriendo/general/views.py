@@ -355,12 +355,11 @@ from django.shortcuts import get_object_or_404, redirect
 @csrf_exempt  # Solo si no pasas CSRF en el request, pero mejor usa el token
 def eliminar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
-    
     if request.method == "POST":
         producto.delete()
-        return JsonResponse({"success": True})  # Devuelve JSON en vez de redirigir
+        return redirect('admin_productos')
 
-    return JsonResponse({"error": "Método no permitido"}, status=400)
+    return render(request, 'admin_panel/admin_prod/eliminar_producto.html', {'producto': producto})
 
 
 #usuarios en admin_panel

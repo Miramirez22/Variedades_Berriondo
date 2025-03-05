@@ -1,10 +1,8 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container mt-4">
-    <h1>Confirmar Eliminación</h1>
-    <p>¿Estás seguro de que deseas eliminar el producto "<strong>{{ producto.nombre }}</strong>"?</p>
-    
+    <h1>Eliminar Producto</h1>
+    <p>¿Estás seguro de que deseas eliminar <strong>{{ producto.nombre }}</strong>?</p>
     <form method="POST">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Sí, eliminar</button>
