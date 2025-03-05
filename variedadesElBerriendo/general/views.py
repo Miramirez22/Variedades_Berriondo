@@ -383,16 +383,17 @@ def agregar_usuario(request):
     return render(request, 'admin_panel/admin_usuarios/agregar_usuario.html', {'form': form})
 
 def editar_usuario(request, usuario_id):
-    usuario = get_object_or_404(User, id=usuario_id)
+    usuario = get_object_or_404(User, id=usuario_id)  
+
     if request.method == "POST":
-        form = UserForm(request.POST, instance=usuario)
+        form = UserForm(request.POST, instance=usuario)  # ✅ Pasar la instancia correcta
         if form.is_valid():
             form.save()
             return redirect('admin_usuarios')
     else:
         form = UserForm(instance=usuario)
 
-    return render(request, 'admin_panel/admin_usuarios/editar_usuario.html', {'form': form, 'usuario': usuario})
+    return render(request, 'admin_panel/admin_user/editar_usuario.html', {'form': form, 'usuario': usuario})
 
 def eliminar_usuario(request, usuario_id):
     usuario = get_object_or_404(UserProfile, id=usuario_id)
