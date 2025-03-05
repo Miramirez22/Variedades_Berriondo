@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import UserProfile, Address, PaymentMethod
+from .models import UserProfile, Address, PaymentMethod, Order
 from general.models import Producto
-
 
 
 class CustomUserForm(forms.ModelForm):
@@ -62,24 +61,15 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['phone_number']
 
-
-# ?? usuarios?
 class UserForm(forms.ModelForm):
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        required=False  # Opcional en edición
-    )
-
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password']
+        fields = ['first_name', 'username', 'email']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
-
 
 class AddressForm(forms.ModelForm):
     class Meta:
@@ -111,9 +101,16 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = ['nombre', 'descripcion', 'precio', 'stock', 'categoria', 'imagen'] 
 
-class UsuarioForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, required=False)  # Campo de contraseña
 
+<<<<<<< HEAD
+class OrderForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password']  # Campos del formulario
+        model = Order
+        fields = ['user', 'total_amount', 'items']
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-control'}),
+            'total_amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'items': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+=======
+>>>>>>> parent of de08f9e (admin_usuarios)

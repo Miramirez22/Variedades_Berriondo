@@ -23,7 +23,7 @@ from general.views import (
     address_add, address_delete, address_prefer, payment_method_add, payment_method_delete, payment_method_prefer, CustomLogoutView, add_to_cart, remove_from_cart, update_quantity, checkout, añadir_otro,
     #ccmm
     admin_panel,admin_productos,admin_usuarios,admin_ordenes,agregar_producto,editar_producto, eliminar_producto,
-    agregar_usuario, editar_usuario, eliminar_usuario,
+    agregar_usuario, editar_usuario, eliminar_usuario, editar_orden
 )
 from django.contrib.auth import views as auth_views
 
@@ -61,14 +61,15 @@ urlpatterns = [
     path('admin_panel/admin_productos/editar/<int:id>/', editar_producto, name='editar_producto'),
     path('admin_panel/admin_productos/eliminar/<int:producto_id>/', eliminar_producto, name='eliminar_producto'),
     #panel de administrar usuarios
-    path('admin_panel/admin_usuarios/', admin_usuarios, name='admin_usuarios'),
+    path('admin_usuarios/', admin_usuarios, name='admin_usuarios'),
+
+    path('admin_usuarios/agregar_usuario/', agregar_usuario, name='agregar_usuario'),
+    path('admin_usuarios/editar_usuario/<int:usuario_id>/', editar_usuario, name='editar_usuario'),
+    path('admin_usuarios/eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
+
+    # Panel de administrar ordenes
+    path('admin_panel/admin_ordenes/', admin_ordenes, name='admin_ordenes'),
     
-    path('admin_panel/admin_usuarios/agregar/', agregar_usuario, name='agregar_usuario'),
-    path('admin_panel/admin_usuarios/editar/<int:usuario_id>/', editar_usuario, name='editar_usuario'),
-    path('admin_panel/admin_usuarios/eliminar/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
-
-
-    path('admin_ordenes/', admin_ordenes, name='admin_ordenes'),
-
+    path('editar_orden/<int:order_id>/', editar_orden, name='editar_orden'),  
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

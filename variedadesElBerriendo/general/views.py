@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
 from django.contrib.auth import update_session_auth_hash
-from .forms import UserForm, UserProfileForm, AddressForm, PaymentMethodForm, PasswordChangeForm
+from .forms import UserForm, UserProfileForm, AddressForm, PaymentMethodForm, PasswordChangeForm, OrderForm
 from .models import UserProfile, Address, PaymentMethod, Order
 from django.contrib.auth.views import LogoutView
 
@@ -362,63 +362,75 @@ def eliminar_producto(request, producto_id):
 
 #usuarios en admin_panel
 def admin_usuarios(request):
+    total_usuarios = UserProfile.objects.count()
     usuarios = UserProfile.objects.all()  # Obtener todos los usuarios
+    return render(request, 'admin_panel/admin_usuarios.html', {'total_usuarios': total_usuarios, 'usuarios': usuarios})
+
+def admin_usuarios(request):
+    usuarios = UserProfile.objects.all()
     return render(request, 'admin_panel/admin_usuarios.html', {'usuarios': usuarios})
 
-
-from django.contrib.auth.hashers import make_password
-from django.contrib import messages
 def agregar_usuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            usuario = form.save(commit=False)
-            usuario.password = make_password(form.cleaned_data['password'])  # Hashea la contraseña
-            usuario.save()
-            messages.success(request, "Usuario agregado exitosamente.")
+            form.save()
             return redirect('admin_usuarios')
-        else:
-            messages.error(request, "Hubo un error en el formulario.")
     else:
         form = UserForm()
 
+<<<<<<< HEAD
     return render(request, 'admin_panel/admin_user/agregar_usuario.html', {'form': form})
 
 
-from .forms import UsuarioForm
+from .forms import UserForm
+=======
+    return render(request, 'admin_panel/agregar_usuario.html', {'form': form})
+>>>>>>> parent of de08f9e (admin_usuarios)
 
 def editar_usuario(request, usuario_id):
-    usuario = get_object_or_404(UserProfile, id=usuario_id)
-
+    usuario = get_object_or_404(UserForm, id=usuario_id)
     if request.method == "POST":
-        form = CustomUserForm(request.POST, instance=usuario)
+        form = UserForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            messages.success(request, "Usuario actualizado correctamente.")
             return redirect('admin_usuarios')
-        else:
-            messages.error(request, "Error al actualizar usuario.")
     else:
         form = UserForm(instance=usuario)
 
-    return render(request, 'admin_panel/admin_user/editar_usuario.html', {'form': form, 'usuario': usuario})
+    return render(request, 'admin_panel/editar_usuario.html', {'form': form, 'usuario': usuario})
 
 def eliminar_usuario(request, usuario_id):
     usuario = get_object_or_404(UserProfile, id=usuario_id)
-    
     if request.method == "POST":
         usuario.delete()
-        return JsonResponse({"success": True})  # ✅ Respuesta JSON para eliminar sin recargar
-    
-    return JsonResponse({"success": False, "error": "Método no permitido"}, status=400)
+        return redirect('admin_usuarios')
+
+    return render(request, 'admin_panel/eliminar_usuario.html', {'usuario': usuario})
+
 
 
 
 #Ordenes en admin_panel
 def admin_ordenes(request):
     total_ordenes = Order.objects.count()
-    ordenes = Order.objects.all()  # Obtener todas las órdenes
-    return render(request, 'admin_panel/admin_ordenes.html', {'total_ordenes': total_ordenes, 'ordenes': ordenes})
+    orders = Order.objects.all()  # Obtener todas las órdenes
+    return render(request, 'admin_panel/admin_ordenes.html', {'total_ordenes': total_ordenes, 'ordenes': orders})
+
+
+def editar_orden(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+
+    if request.method == "POST":
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_ordenes')  # Redirigir a la lista de órdenes
+    else:
+        form = OrderForm(instance=order)
+
+    return render(request, 'admin_panel/admin_ordenes/editar_orden.html', {'form': form})
+
 
 
 
